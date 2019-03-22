@@ -52,4 +52,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['hem'] = 'home';
 $route['resurser'] = 'resources';
 $route['samlingar'] = 'collections';
+$route['mina-sidor'] = 'user';
 $route['default_controller'] = 'home';
