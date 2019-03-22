@@ -51,4 +51,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['hem'] = 'home';
 $route['resurser'] = 'resources';
+$route['samlingar'] = 'collections';
 $route['default_controller'] = 'home';
