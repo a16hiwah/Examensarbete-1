@@ -74,11 +74,11 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'mysql:host=localhost;port=3306;dbname=ccdb;user=root;password=password;charset=utf8;',
+	'dsn'	=> 'mysql:host=localhost;port=3306;dbname=codeigniter;user=root;password=password;charset=utf8;',
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => 'password',
-	'database' => 'ccdn',
+	'database' => 'codeigniter',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
