@@ -1,7 +1,7 @@
-#DROP DATABASE IF EXISTS ccdb;
+#DROP DATABASE IF EXISTS codeigniter;
 
-CREATE DATABASE IF NOT EXISTS ccdb;
-USE ccdb;
+CREATE DATABASE IF NOT EXISTS codeigniter;
+USE codeigniter;
 
 CREATE TABLE users (
 	id INT AUTO_INCREMENT,
@@ -57,3 +57,20 @@ CREATE TABLE comments (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (resource_id) REFERENCES resources(id)
 ) CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+	`id` varchar(128) NOT NULL,
+	`ip_address` varchar(45) NOT NULL,
+	`timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
+	`data` blob NOT NULL,
+	KEY `ci_sessions_timestamp` (`timestamp`)
+);
+
+#When sess_match_ip = TRUE
+#ALTER TABLE ci_sessions ADD PRIMARY KEY (id, ip_address);
+
+#When sess_match_ip = FALSE
+ALTER TABLE ci_sessions ADD PRIMARY KEY (id);
+
+#To drop a previously created primary key (use when changing the setting)
+#ALTER TABLE ci_sessions DROP PRIMARY KEY;
