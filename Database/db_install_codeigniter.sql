@@ -9,8 +9,9 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     image VARCHAR(255),
     biography VARCHAR(255),
-    created DATETIME NOT NULL,
-    PRIMARY KEY(id)
+    created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY(id),
+	UNIQUE KEY (username)
 ) CHARSET=utf8mb4;
 
 CREATE TABLE resources (
