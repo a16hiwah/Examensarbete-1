@@ -53,4 +53,5 @@ $route['hem'] = 'home';
 $route['resurser'] = 'resources';
 $route['samlingar'] = 'collections';
 $route['mina-sidor'] = 'user';
+$route['mina-sidor/skapa-konto'] = 'user/new_user';
 $route['default_controller'] = 'home';

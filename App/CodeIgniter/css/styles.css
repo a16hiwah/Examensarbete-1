@@ -11,3 +11,26 @@
 #header-nav > * {
 	padding: 10px 20px;
 }
+
+#new-user-view {
+	display: flex;
+	justify-content: center;
+}
+
+.form, .form-group {
+	display: flex;
+	flex-direction: column;
+}
+
+.form {
+	min-width: 250px;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+
+.validation-error {
+	max-width: 250px;
+	color: red !important;
+}
