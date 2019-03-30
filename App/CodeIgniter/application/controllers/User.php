@@ -76,7 +76,7 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules($validation_config);
 		
 		// Begin validation
-		if($this->form_validation->run() == FALSE)
+		if ($this->form_validation->run() == FALSE)
 		{
 			// First load, or problem with form
 			$data['username'] = array(
@@ -116,9 +116,9 @@ class User extends CI_Controller {
 				)
 			);
 
-			if($this->user_model->process_create_user($data))
+			if ($this->user_model->process_create_user($data))
 			{
-					redirect('mina-sidor/');
+				redirect('mina-sidor/');
 			}
 		}
 	}
