@@ -10,7 +10,7 @@
 	<nav id="header-nav">
 		<?php
 		$active_page = $this->router->class;
-		$pages = array('Home', 'Resources', 'Collections', 'User');
+		$pages = array('Home', 'Resources', 'Collections', 'My account');
 		
 		foreach ($pages as $page)
 		{
@@ -20,7 +20,7 @@
 			}
 			else
 			{
-				$href = site_url().'/'.url_title($page, 'dash', TRUE).'/';
+				$href = site_url().'/'.url_title($page, 'dash', TRUE);
 				$html = '<a href="'.$href.'">'.$page.'</a>';
 				echo $html;
 			}

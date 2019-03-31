@@ -12,7 +12,7 @@
 	padding: 10px 20px;
 }
 
-#new-user-view {
+.form-view {
 	display: flex;
 	justify-content: center;
 }

@@ -1,25 +1,21 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User extends CI_Controller {
+class Register extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('user_model');
+		$this->load->model('register_model');
 		$this->load->helper('url_helper');
 	}
 
 	public function index()
 	{
-		$data['title'] = 'My account';
-
-		$this->load->view('templates/header', $data);
-		$this->load->view('user/index');
-		$this->load->view('templates/footer');
+		redirect('register/create_user');
 	}
 
-	public function new_user()
+	public function create_user()
 	{
 		// Load support assets
 		$this->load->library('form_validation');
@@ -31,7 +27,7 @@ class User extends CI_Controller {
 		// Set validation rules
 		$validation_config = array(
 			array(
-				'field' => 'username',
+				'field' => 'form-username',
 				'label' => 'Username',
 				'rules' => array(
 					'required',
@@ -47,7 +43,7 @@ class User extends CI_Controller {
 				)
 			),
 			array(
-				'field' => 'password',
+				'field' => 'form-password',
 				'label' => 'Password',
 				'rules' => array(
 					'required',
@@ -61,11 +57,11 @@ class User extends CI_Controller {
 				)
 			),
 			array(
-				'field' => 'passconf',
+				'field' => 'form-passconf',
 				'label' => 'Confirm password',
 				'rules' => array(
 					'required',
-					'matches[password]'
+					'matches[form-password]'
 
 				),
 				'errors' => array(
@@ -78,50 +74,54 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules($validation_config);
 		
 		// Begin validation
-		if ($this->form_validation->run() == FALSE)
+		if ($this->form_validation->run() === FALSE)
 		{
 			// First load, or problem with form
-			$data['username'] = array(
-				'name' => 'username',
-				'id' => 'username',
-				'value' => set_value('username', ''),
+			$data['form_username'] = array(
+				'name' => 'form-username',
+				'id' => 'form-username',
+				'value' => set_value('form-username', ''),
 				'maxlength' => '64'
 			);
 
-			$data['password'] = array(
-				'name' => 'password',
-				'id' => 'password',
-				'value' => set_value('password', ''),
+			$data['form_password'] = array(
+				'name' => 'form-password',
+				'id' => 'form-password',
+				'value' => set_value('form-password', ''),
 				'maxlength' => '255'
 			);
 
-			$data['passconf'] = array(
-				'name' => 'passconf',
-				'id' => 'passconf',
-				'value' => set_value('passconf', ''),
+			$data['form_passconf'] = array(
+				'name' => 'form-passconf',
+				'id' => 'form-passconf',
+				'value' => set_value('form-passconf', ''),
 				'maxlength' => '255'
 			);
 
-			$data['title'] = 'Create account';
+			$data['title'] = 'Create user';
 
 			$this->load->view('templates/header', $data);
-			$this->load->view('user/new_user', $data);
+			$this->load->view('register/create_user', $data);
 			$this->load->view('templates/footer');
 		}
 		else
 		{
 			// Validation passed, now escape the data
 			$data = array(
-				'username' => $this->input->post('username'),
+				'username' => $this->input->post('form-username'),
 				'password' => password_hash(
-					$this->input->post('password'),
+					$this->input->post('form-password'),
 					PASSWORD_DEFAULT
 				)
 			);
 
-			if ($this->user_model->process_create_user($data))
+			if ($this->register_model->create_user($data))
 			{
-				redirect('user/');
+				redirect('my-account');
+			}
+			else
+			{
+				redirect('register/create_user');
 			}
 		}
 	}

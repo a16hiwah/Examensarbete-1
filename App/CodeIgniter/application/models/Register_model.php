@@ -1,20 +1,20 @@
 <?php
-class User_model extends CI_Model {
+class Register_model extends CI_Model {
 
 	public function __construct()
 	{
 		$this->load->database();
 	}
 
-	public function process_create_user($data)
+	public function create_user($data)
 	{
 		if ($this->db->insert('users', $data))
 		{
-			return true;
+			return TRUE;
 		}
 		else
 		{
-			return false;
+			return FALSE;
 		}
 	}
 }
