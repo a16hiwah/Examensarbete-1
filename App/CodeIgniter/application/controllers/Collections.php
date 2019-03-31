@@ -12,7 +12,7 @@ class Collections extends CI_Controller {
 
 	public function index()
 	{
-		$data['title'] = 'Samlingar';
+		$data['title'] = 'Collections';
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('collections/index');

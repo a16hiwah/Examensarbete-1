@@ -1,1 +1,1 @@
-<h1>Mina sidor</h1>
+<h1>My account</h1>

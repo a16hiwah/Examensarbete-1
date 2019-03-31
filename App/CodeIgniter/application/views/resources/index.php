@@ -1,1 +1,1 @@
-<h1>Resurser</h1>
+<h1>Resources</h1>

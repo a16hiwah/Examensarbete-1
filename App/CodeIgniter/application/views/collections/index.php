@@ -1,1 +1,1 @@
-<h1>Samlingar</h1>
+<h1>Collections</h1>

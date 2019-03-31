@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,24 +10,18 @@
 	<nav id="header-nav">
 		<?php
 		$active_page = $this->router->class;
-		$pages = array
-		(
-			'home'=>'Hem',
-			'resources'=>'Resurser',
-			'collections'=>'Samlingar',
-			'user'=>'Mina sidor'
-		);
+		$pages = array('Home', 'Resources', 'Collections', 'User');
 		
-		foreach ($pages as $page => $page_value)
+		foreach ($pages as $page)
 		{
-			if($active_page == $page)
+			if($active_page === strtolower($page))
 			{
-				echo '<span id="active-page">'.$page_value.'</span>';
+				echo '<span id="active-page">'.$page.'</span>';
 			}
 			else
 			{
-				$href = site_url().'/'.url_title($page_value, 'dash', TRUE);
-				$html = '<a href="'.$href.'">'.$page_value.'</a>';
+				$href = site_url().'/'.url_title($page, 'dash', TRUE).'/';
+				$html = '<a href="'.$href.'">'.$page.'</a>';
 				echo $html;
 			}
 		}

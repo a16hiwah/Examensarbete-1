@@ -11,24 +11,24 @@
 	?>
 
 	<div class="form-group">
-		<span class="form-label">Användarnamn</span>
+		<span class="form-label">Username</span>
 		<?php echo form_input($username, set_value('username')); ?>
 		<?php echo form_error('username'); ?>
 	</div>
 
 	<div class="form-group">
-		<span class="form-label">Lösenord</span>
+		<span class="form-label">Password</span>
 		<?php echo form_password($password, set_value('password')); ?>
 		<?php echo form_error('password'); ?>
 	</div>
 
 	<div class="form-group">
-		<span class="form-label">Bekräfta lösenord</span>
+		<span class="form-label">Confirm password</span>
 		<?php echo form_password($passconf, set_value('passconf')); ?>
 		<?php echo form_error('passconf'); ?>
 	</div>
 
-	<?php echo form_submit('submit', 'Skapa konto'); ?>
-	<?php echo anchor('mina-sidor/', 'Avbryt'); ?>
+	<?php echo form_submit('submit', 'Create account'); ?>
+	<?php echo anchor('user/', 'Cancel'); ?>
 	<?php echo form_close(); ?>
 </div>
