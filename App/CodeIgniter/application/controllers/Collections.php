@@ -13,6 +13,7 @@ class Collections extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = 'Collections';
+		$data['center_content'] = FALSE;
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('collections/index');

@@ -18,4 +18,5 @@
 	}
 	
 	?>
+	<?php echo anchor('sign-out', 'Sign out'); ?>
 </nav>

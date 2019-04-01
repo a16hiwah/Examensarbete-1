@@ -1,7 +1,25 @@
+/* GENERAL */
+
 * {
 	margin: 0;
 	padding: 0;
 }
+
+#content {
+	display: flex;
+	margin-top: 20px;
+}
+
+#content-center {
+	display: flex;
+	justify-content: center;
+}
+
+.main-content {
+	margin-left: 100px;
+}
+
+/* NAVIGATION */
 
 #header-nav {
 	display: flex;
@@ -17,10 +35,11 @@
 	flex-direction: column;
 }
 
-.form-view {
-	display: flex;
-	justify-content: center;
+#my-account-nav > * {
+	padding: 10px 0px;
 }
+
+/* FORMS */
 
 .form, .form-group {
 	display: flex;

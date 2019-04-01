@@ -13,6 +13,7 @@ class Resources extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = 'Resources';
+		$data['center_content'] = FALSE;
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('resources/index');

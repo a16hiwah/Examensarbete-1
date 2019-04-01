@@ -106,6 +106,7 @@ class Sign_in extends CI_Controller {
 			$data['auth_fail'] = TRUE;
 		}
 		$data['title'] = 'Sign in';
+		$data['center_content'] = TRUE;
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('sign_in/sign_in');

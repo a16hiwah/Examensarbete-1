@@ -26,6 +26,8 @@ class My_account extends CI_Controller {
 	public function overview()
 	{
 		$data['title'] = 'Overview';
+		$data['center_content'] = FALSE;
+
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/my_account_nav');
 		$this->load->view('my_account/overview');
@@ -35,6 +37,8 @@ class My_account extends CI_Controller {
 	public function my_resources()
 	{
 		$data['title'] = 'My Resources';
+		$data['center_content'] = FALSE;
+
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/my_account_nav');
 		$this->load->view('my_account/my_resources');
@@ -44,6 +48,8 @@ class My_account extends CI_Controller {
 	public function my_collections()
 	{
 		$data['title'] = 'My Collections';
+		$data['center_content'] = FALSE;
+
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/my_account_nav');
 		$this->load->view('my_account/my_collections');
@@ -53,6 +59,8 @@ class My_account extends CI_Controller {
 	public function my_comments()
 	{
 		$data['title'] = 'My Comments';
+		$data['center_content'] = FALSE;
+		
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/my_account_nav');
 		$this->load->view('my_account/my_comments');
