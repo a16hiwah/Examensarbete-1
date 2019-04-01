@@ -7,23 +7,23 @@ class My_account extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('my_account_model');
-        $this->load->helper('url_helper');
-        $this->load->library('session');
+		$this->load->helper('url_helper');
+		$this->load->library('session');
 	}
 
 	public function index()
 	{
-        if ( ! $this->session->signed_in)
-        {
-            redirect('sign-in');
-        }
-        else
-        {
-            $data['title'] = 'My account';
-            $this->load->view('templates/header', $data);
-            $this->load->view('my_account/index');
-            $this->load->view('templates/footer');
-        }
+		if ( ! $this->session->user_signed_in)
+		{
+			redirect('sign-in');
+		}
+		else
+		{
+			$data['title'] = 'My account';
+			$this->load->view('templates/header', $data);
+			$this->load->view('my_account/index');
+			$this->load->view('templates/footer');
+		}
 	}
 
 }

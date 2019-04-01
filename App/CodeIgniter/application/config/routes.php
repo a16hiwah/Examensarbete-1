@@ -50,4 +50,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['my-account'] = 'my_account';
+$route['sign-in'] = 'sign_in';
+$route['sign-out'] = 'sign_out';
 $route['default_controller'] = 'home';

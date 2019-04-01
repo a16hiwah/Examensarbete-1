@@ -29,6 +29,6 @@
 	</div>
 
 	<?php echo form_submit('submit', 'Create account'); ?>
-	<?php echo anchor('home', 'Cancel'); ?>
+	<?php echo anchor('sign-in', 'Cancel'); ?>
 	<?php echo form_close(); ?>
 </div>
