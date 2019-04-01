@@ -12,6 +12,11 @@
 	padding: 10px 20px;
 }
 
+#my-account-nav {
+	display: flex;
+	flex-direction: column;
+}
+
 .form-view {
 	display: flex;
 	justify-content: center;

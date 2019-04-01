@@ -14,7 +14,7 @@
 		
 		foreach ($pages as $page)
 		{
-			if($active_page === strtolower($page))
+			if($active_page === str_replace(' ', '_', strtolower($page)))
 			{
 				echo '<span id="active-page">'.$page.'</span>';
 			}

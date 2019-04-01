@@ -19,11 +19,44 @@ class My_account extends CI_Controller {
 		}
 		else
 		{
-			$data['title'] = 'My account';
-			$this->load->view('templates/header', $data);
-			$this->load->view('my_account/index');
-			$this->load->view('templates/footer');
+			redirect('my-account/overview');
 		}
+	}
+
+	public function overview()
+	{
+		$data['title'] = 'Overview';
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/my_account_nav');
+		$this->load->view('my_account/overview');
+		$this->load->view('templates/footer');
+	}
+
+	public function my_resources()
+	{
+		$data['title'] = 'My Resources';
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/my_account_nav');
+		$this->load->view('my_account/my_resources');
+		$this->load->view('templates/footer');
+	}
+
+	public function my_collections()
+	{
+		$data['title'] = 'My Collections';
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/my_account_nav');
+		$this->load->view('my_account/my_collections');
+		$this->load->view('templates/footer');
+	}
+
+	public function my_comments()
+	{
+		$data['title'] = 'My Comments';
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/my_account_nav');
+		$this->load->view('my_account/my_comments');
+		$this->load->view('templates/footer');
 	}
 
 }

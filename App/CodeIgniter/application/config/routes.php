@@ -52,4 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['my-account'] = 'my_account';
 $route['sign-in'] = 'sign_in';
 $route['sign-out'] = 'sign_out';
+$route['my-account/overview'] = 'my_account/overview';
+$route['my-account/my-resources'] = 'my_account/my_resources';
+$route['my-account/my-collections'] = 'my_account/my_collections';
+$route['my-account/my-comments'] = 'my_account/my_comments';
 $route['default_controller'] = 'home';
