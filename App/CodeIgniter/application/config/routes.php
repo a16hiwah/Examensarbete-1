@@ -50,11 +50,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['my-account'] = 'my_account';
-$route['sign-in'] = 'sign_in';
-$route['sign-out'] = 'sign_out';
 $route['my-account/overview'] = 'my_account/overview';
 $route['my-account/my-resources'] = 'my_account/my_resources';
-$route['resources/create-resource'] = 'resources/create_resource';
 $route['my-account/my-collections'] = 'my_account/my_collections';
 $route['my-account/my-comments'] = 'my_account/my_comments';
+
+$route['sign-in'] = 'sign_in';
+$route['sign-out'] = 'sign_out';
+
+$route['resources/create-resource'] = 'resources/create_resource';
+$route['resources/delete-resource/(:any)/(:num)'] = 'resources/delete_resource/$1/$2';
+
 $route['default_controller'] = 'home';

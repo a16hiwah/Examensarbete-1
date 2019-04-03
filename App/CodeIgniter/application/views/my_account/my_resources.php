@@ -43,12 +43,12 @@
 					<td class="usr-res-created"><?php echo $created; ?></td>
 					<td class="usr-res-edit">
 						<?php
-						echo anchor('resource/edit-resource/'.$row->id, 'Edit');
+						echo anchor('resources/edit-resource/'.$row->id, 'Edit');
 						?>
 					</td>
 					<td class="usr-res-deleted">
 						<?php
-						echo anchor('resource/delete-resource/'.$row->id, 'Delete');
+						echo anchor('resources/delete-resource/'.$row->id.'/'.$this->session->user_id, 'Delete');
 						?>
 					</td>
 				</tr>
