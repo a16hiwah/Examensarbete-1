@@ -20,8 +20,8 @@ CREATE TABLE resources (
     title VARCHAR(255) NOT NULL,
     slug VARCHAR(191) NOT NULL,
     description VARCHAR(255) NOT NULL,
-    body TEXT,
-    created DATETIME,
+    body TEXT NOT NULL,
+    created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY(id, user_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     UNIQUE KEY (slug)
@@ -34,7 +34,7 @@ CREATE TABLE collections (
     slug VARCHAR(191) NOT NULL,
     description VARCHAR(255) NOT NULL,
     body TEXT,
-    created DATETIME,
+    created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY(id, user_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     UNIQUE KEY (slug)
@@ -53,7 +53,7 @@ CREATE TABLE comments (
     user_id INT,
     resource_id INT,
     body VARCHAR(2000) NOT NULL,
-    created DATETIME,
+    created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY(id, user_id, resource_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (resource_id) REFERENCES resources(id)
@@ -75,3 +75,4 @@ ALTER TABLE ci_sessions ADD PRIMARY KEY (id);
 
 #To drop a previously created primary key (use when changing the setting)
 #ALTER TABLE ci_sessions DROP PRIMARY KEY;
+
