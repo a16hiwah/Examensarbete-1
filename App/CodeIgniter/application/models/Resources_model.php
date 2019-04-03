@@ -8,4 +8,16 @@ class Resources_model extends CI_Model {
 		$this->load->database();
 	}
 
+	public function create_resource($data)
+	{
+		if ($this->db->insert('resources', $data))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
 }
