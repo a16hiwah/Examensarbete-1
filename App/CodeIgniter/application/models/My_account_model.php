@@ -8,4 +8,11 @@ class My_account_model extends CI_Model {
 		$this->load->database();
 	}
 
+	public function get_user_resources($user_id)
+	{
+		$this->db->where('user_id', $user_id);
+		$query = $this->db->get('resources');
+		return $query;
+	}
+
 }

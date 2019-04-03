@@ -19,6 +19,10 @@
 	margin-left: 100px;
 }
 
+
+
+
+
 /* NAVIGATION */
 
 #header-nav {
@@ -39,6 +43,10 @@
 	padding: 10px 0px;
 }
 
+
+
+
+
 /* FORMS */
 
 .form, .form-group {
@@ -57,4 +65,36 @@
 .validation-error {
 	max-width: 250px;
 	color: red !important;
+}
+
+
+
+
+/* TABLES */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+  
+th, td {
+	padding: 5px 10px;
+	text-align: left;
+	vertical-align: top;
+}
+
+.usr-res-title, .usr-res-description {
+	max-width: 200px;
+}
+
+.usr-res-body {
+	max-width: 300px;
+}
+
+.usr-res-created, .usr-res-edit, .usr-res-delete {
+	max-width: 200px;
+}
+
+tr:nth-child(even) {
+	background-color: #f2f2f2;
 }

@@ -38,10 +38,13 @@ class My_account extends CI_Controller {
 	{
 		$data['title'] = 'My Resources';
 		$data['center_content'] = FALSE;
+		$data['user_resources'] = $this->my_account_model->get_user_resources(
+			$this->session->user_id
+		);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/my_account_nav');
-		$this->load->view('my_account/my_resources');
+		$this->load->view('my_account/my_resources', $data);
 		$this->load->view('templates/footer');
 	}
 
