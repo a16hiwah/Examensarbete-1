@@ -58,6 +58,7 @@ $route['my-account/my-comments'] = 'my_account/my_comments';
 $route['sign-in'] = 'sign_in';
 $route['sign-out'] = 'sign_out';
 
+$route['resources/view/(:any)'] = 'resources/view/$1';
 $route['resources/create-resource'] = 'resources/create_resource';
 $route['resources/delete-resource/(:any)/(:num)'] = 'resources/delete_resource/$1/$2';
 

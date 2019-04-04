@@ -35,4 +35,18 @@ class Resources_model extends CI_Model {
 		}
 	}
 
+	public function get_resources_by_filter($filter)
+	{
+		if ($filter === '0-9')
+		{
+			$this->db->where('title REGEXP "^[0-9]"');
+		}
+		else
+		{
+			$this->db->where('title LIKE', $filter.'%');
+		}
+		$query = $this->db->get('resources');
+		return $query;
+	}
+
 }

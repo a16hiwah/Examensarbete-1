@@ -12,12 +12,7 @@ class Resources extends CI_Controller {
 
 	public function index()
 	{
-		$data['title'] = 'Resources';
-		$data['center_content'] = FALSE;
-
-		$this->load->view('templates/header', $data);
-		$this->load->view('resources/index');
-		$this->load->view('templates/footer');
+		redirect('resources/view/A');
 	}
 
 	public function create_resource()
@@ -153,6 +148,7 @@ class Resources extends CI_Controller {
 	{
 		$this->load->library('session');
 
+		// Only allow deletion if it is the user's own resource
 		if ($user_id === $this->session->user_id)
 		{
 			if ($this->resources_model->delete_resource($id, $user_id))
@@ -164,6 +160,18 @@ class Resources extends CI_Controller {
 		{
 			redirect('my-account/my-resources');
 		}
+	}
+
+	// Show resources based on filter settings set by the user
+	public function view($filter)
+	{
+		$data['title'] = 'Resources - '.$filter;
+		$data['center_content'] = FALSE;
+		$data['resources'] = $this->resources_model->get_resources_by_filter($filter);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('resources/index');
+		$this->load->view('templates/footer');
 	}
 
 }

@@ -17,6 +17,7 @@
 			<tbody>
 			<?php foreach ($user_resources->result() as $row) : ?>
 				<?php
+				// Maximum string length visible in table
 				$str_max_len = 80;
 
 				$title =
