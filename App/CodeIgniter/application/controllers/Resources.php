@@ -138,7 +138,16 @@ class Resources extends CI_Controller {
 
 	public function delete_resource($id, $user_id)
 	{
-		if ($this->resources_model->delete_resource($id, $user_id))
+		$this->load->library('session');
+
+		if ($user_id === $this->session->user_id)
+		{
+			if ($this->resources_model->delete_resource($id, $user_id))
+			{
+				redirect('my-account/my-resources');
+			}
+		}
+		else
 		{
 			redirect('my-account/my-resources');
 		}
