@@ -116,10 +116,11 @@ class Resources extends CI_Controller {
 			else
 			{
 				// Validation passed, now escape the data
+				$slug = $this->_get_unique_slug($this->input->post('form-title'));
 				$data = array(
 					'user_id' => $this->session->user_id,
 					'title' => $this->input->post('form-title'),
-					'slug' => url_title($this->input->post('form-title', 'dash', TRUE)),
+					'slug' => $slug,
 					'description' => $this->input->post('form-description'),
 					'body' => $this->input->post('form-body')
 				);
@@ -134,6 +135,18 @@ class Resources extends CI_Controller {
 				}
 			}
 		}
+	}
+
+	// Get unique slug by appending Unix timestamp and user id
+	private function _get_unique_slug($str)
+	{
+		$this->load->library('session');
+		$slug = url_title($str, 'dash', TRUE)
+			.'-'
+			.strtotime(date('Y-m-d H:i:s'))
+			.'-'
+			.$this->session->user_id;
+		return $slug; 
 	}
 
 	public function delete_resource($id, $user_id)
