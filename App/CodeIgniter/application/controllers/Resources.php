@@ -15,7 +15,7 @@ class Resources extends CI_Controller {
 		redirect('resources/view/A');
 	}
 
-	public function create_resource($edit = FALSE, $id = NULL, $user_id = NULL)
+	public function create_edit_resource($edit = FALSE, $id = NULL, $user_id = NULL)
 	{
 		$this->load->library('session');
 
@@ -121,7 +121,7 @@ class Resources extends CI_Controller {
 				$data['edit'] = $edit;
 
 				$this->load->view('templates/header', $data);
-				$this->load->view('resources/create_resource', $data);
+				$this->load->view('resources/create_edit_resource', $data);
 				$this->load->view('templates/footer');
 			}
 			else

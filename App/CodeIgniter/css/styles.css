@@ -84,27 +84,27 @@ th, td {
 	word-wrap: break-word;
 }
 
-.usr-res-title, .usr-res-description {
+.usr-resrc-title, .usr-resrc-description {
 	max-width: 200px;
 }
 
-.usr-res-body {
+.usr-resrc-body {
 	max-width: 300px;
 }
 
-.usr-res-created, .usr-res-edit, .usr-res-delete {
+.usr-resrc-created, .usr-resrc-edit, .usr-resrc-delete {
 	max-width: 200px;
 }
 
-.res-title, .res-description {
+.resrc-title, .resrc-description {
 	max-width: 200px;
 }
 
-.res-body {
+.resrc-body {
 	max-width: 300px;
 }
 
-.res-created {
+.resrc-created {
 	max-width: 200px;
 }
 

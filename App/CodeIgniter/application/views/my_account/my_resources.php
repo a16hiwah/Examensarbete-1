@@ -38,16 +38,16 @@
 				$created = substr(date($row->created), 0, 16);
 				?>
 				<tr>
-					<td class="usr-res-title"><?php echo anchor('resources/open/'.$row->slug, $title); ?></td>
-					<td class="usr-res-description"><?php echo $description; ?></td>
-					<td class="usr-res-body"><?php echo $body; ?></td>
-					<td class="usr-res-created"><?php echo $created; ?></td>
-					<td class="usr-res-edit">
+					<td class="usr-resrc-title"><?php echo anchor('resources/open/'.$row->slug, $title); ?></td>
+					<td class="usr-resrc-description"><?php echo $description; ?></td>
+					<td class="usr-resrc-body"><?php echo $body; ?></td>
+					<td class="usr-resrc-created"><?php echo $created; ?></td>
+					<td class="usr-resrc-edit">
 						<?php
 						echo anchor('resources/edit-resource/1/'.$row->id.'/'.$this->session->user_id, 'Edit');
 						?>
 					</td>
-					<td class="usr-res-delete">
+					<td class="usr-resrc-delete">
 						<?php
 						echo anchor('resources/delete-resource/'.$row->id.'/'.$this->session->user_id, 'Delete');
 						?>

@@ -1,4 +1,4 @@
-<div id="create-resource-view" class="form-view">
+<div id="create-edit-resrc-view" class="form-view">
 	<?php
 	$attributes = array(
 		'id' => 'form-create-resource',
