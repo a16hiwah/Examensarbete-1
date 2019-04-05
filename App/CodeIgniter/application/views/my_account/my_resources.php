@@ -47,7 +47,7 @@
 						echo anchor('resources/edit-resource/'.$row->id, 'Edit');
 						?>
 					</td>
-					<td class="usr-res-deleted">
+					<td class="usr-res-delete">
 						<?php
 						echo anchor('resources/delete-resource/'.$row->id.'/'.$this->session->user_id, 'Delete');
 						?>
