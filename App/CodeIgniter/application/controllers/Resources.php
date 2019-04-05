@@ -15,7 +15,7 @@ class Resources extends CI_Controller {
 		redirect('resources/view/A');
 	}
 
-	public function create_resource()
+	public function create_resource($edit = FALSE, $id = NULL, $user_id = NULL)
 	{
 		$this->load->library('session');
 
@@ -77,6 +77,15 @@ class Resources extends CI_Controller {
 
 			$this->form_validation->set_rules($validation_config);
 
+			// Get data from the resource that should be edited
+			if ($edit)
+			{
+				$resource = $this->resources_model->get_resource_by_ids($id, $user_id);
+				$title = $resource[0]->title;
+				$description = $resource[0]->description;
+				$body = $resource[0]->body;
+			}
+
 			// Begin validation
 			if ( ! $this->form_validation->run())
 			{
@@ -84,25 +93,32 @@ class Resources extends CI_Controller {
 				$data['form_title'] = array(
 					'name' => 'form-title',
 					'id' => 'form-title',
-					'value' => set_value('form-title', ''),
+					'value' => ( ! $edit)
+						? set_value('form-title', '')
+						: set_value('form-title', $title),
 					'maxlength' => '255'
 				);
 
 				$data['form_description'] = array(
 					'name' => 'form-description',
 					'id' => 'form-description',
-					'value' => set_value('form-description', ''),
+					'value' => ( ! $edit)
+						? set_value('form-description', '')
+						: set_value('form-description', $description),
 					'maxlength' => '255'
 				);
 
 				$data['form_body'] = array(
 					'name' => 'form-body',
 					'id' => 'form-body',
-					'value' => set_value('form-body', '')
+					'value' => ( ! $edit)
+						? set_value('form-body', '')
+						: set_value('form-body', $body),
 				);
 
 				$data['title'] = 'Create resource';
 				$data['center_content'] = TRUE;
+				$data['edit'] = $edit;
 
 				$this->load->view('templates/header', $data);
 				$this->load->view('resources/create_resource', $data);
@@ -120,14 +136,35 @@ class Resources extends CI_Controller {
 					'body' => $this->input->post('form-body')
 				);
 
-				if ($this->resources_model->create_resource($data))
+				// Either create or update row in database
+				if ( ! $edit)
 				{
-					redirect('my-account/my-resources');
+					if ($this->resources_model->create_resource($data))
+					{
+						$query_success = TRUE;
+					}
+					else
+					{
+						$query_success = FALSE;
+					}
 				}
 				else
 				{
-					redirect('my-account/my-resources/create-resource');
+					if ($this->resources_model->edit_resource($id, $user_id, $data))
+					{
+						$query_success = TRUE;
+					}
+					else
+					{
+						$query_success = FALSE;
+					}
 				}
+
+				if ($query_success)
+				{
+					redirect('my-account/my-resources');
+				}
+				
 			}
 		}
 	}
@@ -230,7 +267,7 @@ class Resources extends CI_Controller {
 			);
 
 			// Get resource based on its slug
-			$data['resource'] = $this->resources_model->get_resource($slug);
+			$data['resource'] = $this->resources_model->get_resource_by_slug($slug);
 
 			// Get comments and their creator's information
 			$data['comments'] = $this->resources_model->get_comments(

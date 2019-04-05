@@ -20,6 +20,21 @@ class Resources_model extends CI_Model {
 		}
 	}
 
+	public function edit_resource($id, $user_id, $data)
+	{
+		$this->db->set($data);
+		$this->db->where('id', $id);
+		$this->db->where('user_id', $user_id);
+		if ($this->db->update('resources'))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
 	public function delete_resource($id, $user_id)
 	{
 		$this->db->where('id', $id);
@@ -50,11 +65,20 @@ class Resources_model extends CI_Model {
 	}
 
 	// Get resource based on its slug
-	public function get_resource($slug)
+	public function get_resource_by_slug($slug)
 	{
 		$this->db->where('slug', $slug);
 		$query = $this->db->get('resources');
         return $query;
+	}
+
+	// Get resource based on its id and user id
+	public function get_resource_by_ids($id, $user_id)
+	{
+		$this->db->where('id', $id);
+		$this->db->where('user_id', $user_id);
+		$query = $this->db->get('resources');
+        return $query->result();
 	}
 
 	public function create_comment($data)

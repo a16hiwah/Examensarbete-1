@@ -60,6 +60,7 @@ $route['sign-out'] = 'sign_out';
 
 $route['resources/view/(:any)'] = 'resources/view/$1';
 $route['resources/create-resource'] = 'resources/create_resource';
-$route['resources/delete-resource/(:any)/(:num)'] = 'resources/delete_resource/$1/$2';
+$route['resources/delete-resource/(:num)/(:num)'] = 'resources/delete_resource/$1/$2';
+$route['resources/edit-resource/(:num)/(:num)/(:num)'] = 'resources/create_resource/$1/$2/$3';
 
 $route['default_controller'] = 'home';

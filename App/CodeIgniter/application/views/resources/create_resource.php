@@ -1,13 +1,11 @@
 <div id="create-resource-view" class="form-view">
 	<?php
-
 	$attributes = array(
 		'id' => 'form-create-resource',
 		'class' => 'form'
 	);
 
-	echo form_open('resources/create_resource', $attributes);
-
+	echo form_open(uri_string(), $attributes);
 	?>
 
 	<div class="form-group">
@@ -28,7 +26,17 @@
 		<?php echo form_error('form-body'); ?>
 	</div>
 
-	<?php echo form_submit('submit', 'Create resource'); ?>
+	<?php
+	if($edit)
+	{
+		echo form_submit('submit', 'Edit resource');
+	}
+	else
+	{
+		echo form_submit('submit', 'Create resource');
+	}
+	?>
+	
 	<?php echo anchor('my-account/my-resources', 'Cancel'); ?>
 	<?php echo form_close(); ?>
 </div>
