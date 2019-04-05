@@ -209,6 +209,9 @@ class Resources extends CI_Controller {
 	// Show resources based on filter settings set by the user
 	public function view($filter)
 	{
+		// Load support assets
+		$this->load->library('form_validation');
+
 		$data['title'] = 'Resources - '.$filter;
 		$data['center_content'] = FALSE;
 		$data['resources'] = $this->resources_model->get_resources_by_filter($filter);

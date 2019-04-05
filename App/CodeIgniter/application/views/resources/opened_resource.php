@@ -5,7 +5,6 @@
 		<div>
 			<p><?php echo $row->description; ?></p>
 		</div>
-		<br>
 		<div>
 			<p><?php echo nl2br($row->body); ?></p>
 		</div>

@@ -11,6 +11,14 @@
 			<?php echo anchor('resources/view/'.$letter, $letter); ?>
 		<?php endforeach; ?>
 	</div>
+	
+	<div class="search-section">
+		<?php echo form_open('search/find_resources', 'id=form-search'); ?>
+		<?php echo form_input('search-box', ''); ?>
+		<?php echo form_submit('submit', 'Search'); ?>
+		<?php echo form_close(); ?>
+	</div>
+
 	<?php if ($resources->num_rows() > 0) : ?>
 		<table id="tbl-resources">
 			<thead>
