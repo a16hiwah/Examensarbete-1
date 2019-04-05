@@ -103,7 +103,7 @@ th, td {
 	max-width: 300px;
 }
 
-.res-created, .res-edit, .res-delete {
+.res-created {
 	max-width: 200px;
 }
 

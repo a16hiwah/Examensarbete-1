@@ -63,10 +63,13 @@ class My_account extends CI_Controller {
 	{
 		$data['title'] = 'My Comments';
 		$data['center_content'] = FALSE;
+		$data['user_comments'] = $this->my_account_model->get_user_comments(
+			$this->session->user_id
+		);
 		
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/my_account_nav');
-		$this->load->view('my_account/my_comments');
+		$this->load->view('my_account/my_comments', $data);
 		$this->load->view('templates/footer');
 	}
 

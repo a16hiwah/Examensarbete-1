@@ -15,4 +15,15 @@ class My_account_model extends CI_Model {
 		return $query;
 	}
 
+	// Get all comments for a user based on the user id and get information
+	// about the resources the comments are a part of.
+	public function get_user_comments($user_id)
+	{
+		$this->db->select('comments.body, comments.created, resources.title, resources.slug');
+		$this->db->join('resources', 'resources.id = comments.resource_id', 'inner');
+		$this->db->where('comments.user_id', $user_id);
+		$query = $this->db->get('comments');
+		return $query;
+	}
+
 }
