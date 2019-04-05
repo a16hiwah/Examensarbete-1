@@ -135,6 +135,13 @@ class Resources extends CI_Controller {
 	// Get unique slug by appending Unix timestamp and user id
 	private function _get_unique_slug($str)
 	{
+		$str = str_replace('å', 'a', $str);
+		$str = str_replace('ä', 'a', $str);
+		$str = str_replace('ö', 'o', $str);
+		$str = str_replace('Å', 'a', $str);
+		$str = str_replace('Ä', 'a', $str);
+		$str = str_replace('Ö', 'o', $str);
+
 		$this->load->library('session');
 		$slug = url_title($str, 'dash', TRUE)
 			.'-'
