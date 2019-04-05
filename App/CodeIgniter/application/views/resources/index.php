@@ -45,7 +45,7 @@
 				$created = substr(date($row->created), 0, 16);
 				?>
 				<tr>
-					<td class="res-title"><?php echo $title; ?></td>
+					<td class="res-title"><?php echo anchor('resources/open/'.$row->slug, $title); ?></td>
 					<td class="res-description"><?php echo $description; ?></td>
 					<td class="res-body"><?php echo $body; ?></td>
 					<td class="res-created"><?php echo $created; ?></td>

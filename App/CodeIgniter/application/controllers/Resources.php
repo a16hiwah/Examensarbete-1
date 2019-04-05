@@ -174,4 +174,81 @@ class Resources extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	// Open resource based on slug
+	public function open($slug)
+	{
+		// Load support assets
+		$this->load->library('session');
+		$this->load->library('form_validation');
+		
+		$this->form_validation->set_error_delimiters(
+			'<span class="validation-error">',
+			'</span>'
+		);
+		
+		// Set validation rules
+		$validation_config = array(
+			array(
+				'field' => 'form-comment',
+				'label' => 'Comment',
+				'rules' => array(
+					'required',
+					'min_length[1]',
+					'max_length[2000]'
+				),
+				'errors' => array(
+					'required' => '*Empty comments cannot be created',
+					'min_length' => '*Empty comments cannot be created',
+					'max_length' => '*The comment cannot be longer than 2000 characters in length'
+				)
+			)
+		);
+		$this->form_validation->set_rules($validation_config);
+
+		$data['title'] = 'Resource - opened';
+		$data['center_content'] = FALSE;
+		$data['resource_id'] = NULL;
+		
+		// Only show form for creating comments in the view if user is signed in
+		$data['show_create_comment'] = $this->session->user_signed_in;
+
+		if ( ! $this->form_validation->run())
+		{
+			// First load, or problem with form
+			$data['form_comment'] = array(
+				'name' => 'form-comment',
+				'id' => 'form-comment',
+				'value' => set_value('form-comment', ''),
+				'maxlength' => '2000'
+			);
+
+			// Get resource based on its slug
+			$data['resource'] = $this->resources_model->get_resource($slug);
+
+			// Get comments and their creator's information
+			$data['comments'] = $this->resources_model->get_comments(
+				$data['resource']->result()[0]->id
+			);
+
+			$this->load->view('templates/header', $data);
+			$this->load->view('resources/opened_resource', $data);
+			$this->load->view('templates/footer');
+		}
+		else
+		{
+			// Validation passed, now escape the data
+			$data = array(
+				'user_id' => $this->session->user_id,
+				'resource_id' => $this->input->post('form-resource-id'),
+				'body' => $this->input->post('form-comment')
+			);
+
+			if ($this->resources_model->create_comment($data))
+			{
+				// Go back to current page
+				redirect(uri_string());
+			}
+		}
+	}
+
 }

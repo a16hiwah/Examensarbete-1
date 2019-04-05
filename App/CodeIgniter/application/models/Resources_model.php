@@ -49,4 +49,35 @@ class Resources_model extends CI_Model {
 		return $query;
 	}
 
+	// Get resource based on its slug
+	public function get_resource($slug)
+	{
+		$this->db->where('slug', $slug);
+		$query = $this->db->get('resources');
+        return $query;
+	}
+
+	public function create_comment($data)
+	{
+		if ($this->db->insert('comments', $data))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	// Get all comments for a resource based on the resource id and information
+	// about the creators of the comments.
+	public function get_comments($resource_id)
+	{
+		$this->db->select('comments.body, comments.created, users.username, users.image');
+		$this->db->join('users', 'users.id = comments.user_id', 'inner');
+		$this->db->where('resource_id', $resource_id);
+		$query = $this->db->get('comments');
+        return $query;
+	}
+
 }
