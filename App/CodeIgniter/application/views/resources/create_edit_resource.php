@@ -37,6 +37,6 @@
 	}
 	?>
 	
-	<?php echo anchor('my-account/my-resources', 'Cancel'); ?>
+	<?php echo anchor('my-account/my-resources', 'Cancel', 'id="cancel-btn"'); ?>
 	<?php echo form_close(); ?>
 </div>

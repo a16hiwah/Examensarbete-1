@@ -20,7 +20,6 @@ class Search extends CI_Controller {
 			if (strlen($search_term) > 0 && strlen($search_term) < 256)
 			{
 				$data['title'] = "Search results";
-				$data['center_content'] = FALSE;
 				$data['search_results'] = $this->search_model->find_resources($search_term);
 
 				$this->load->view('templates/header', $data);

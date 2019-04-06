@@ -1,4 +1,4 @@
-<div id="my-comments-view" class="main-content">
+<div id="my-comments-view" class="content">
 	<h1>My Comments</h1>
 	<?php if ($user_comments->num_rows() > 0) : ?>
 		<table id="tbl-user-comments">

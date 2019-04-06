@@ -1,4 +1,4 @@
-<div class="homepage-view">
+<div id="homepage-view" class="content">
 <h1>Homepage</h1>
 	<h4>
 		Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi fugiat

@@ -117,7 +117,6 @@ class Resources extends CI_Controller {
 				);
 
 				$data['title'] = 'Create resource';
-				$data['center_content'] = TRUE;
 				$data['edit'] = $edit;
 
 				$this->load->view('templates/header', $data);
@@ -213,11 +212,10 @@ class Resources extends CI_Controller {
 		$this->load->library('form_validation');
 
 		$data['title'] = 'Resources - '.$filter;
-		$data['center_content'] = FALSE;
 		$data['resources'] = $this->resources_model->get_resources_by_filter($filter);
 
 		$this->load->view('templates/header', $data);
-		$this->load->view('resources/index');
+		$this->load->view('resources/resources');
 		$this->load->view('templates/footer');
 	}
 
@@ -253,7 +251,6 @@ class Resources extends CI_Controller {
 		$this->form_validation->set_rules($validation_config);
 
 		$data['title'] = 'Resource - opened';
-		$data['center_content'] = FALSE;
 		$data['resource_id'] = NULL;
 		
 		// Only show form for creating comments in the view if user is signed in

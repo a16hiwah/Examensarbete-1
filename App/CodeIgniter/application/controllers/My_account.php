@@ -26,10 +26,9 @@ class My_account extends CI_Controller {
 	public function overview()
 	{
 		$data['title'] = 'Overview';
-		$data['center_content'] = FALSE;
 
 		$this->load->view('templates/header', $data);
-		$this->load->view('templates/my_account_nav');
+		$this->load->view('templates/subheader');
 		$this->load->view('my_account/overview');
 		$this->load->view('templates/footer');
 	}
@@ -37,13 +36,12 @@ class My_account extends CI_Controller {
 	public function my_resources()
 	{
 		$data['title'] = 'My Resources';
-		$data['center_content'] = FALSE;
 		$data['user_resources'] = $this->my_account_model->get_user_resources(
 			$this->session->user_id
 		);
 
 		$this->load->view('templates/header', $data);
-		$this->load->view('templates/my_account_nav');
+		$this->load->view('templates/subheader');
 		$this->load->view('my_account/my_resources', $data);
 		$this->load->view('templates/footer');
 	}
@@ -51,10 +49,9 @@ class My_account extends CI_Controller {
 	public function my_collections()
 	{
 		$data['title'] = 'My Collections';
-		$data['center_content'] = FALSE;
 
 		$this->load->view('templates/header', $data);
-		$this->load->view('templates/my_account_nav');
+		$this->load->view('templates/subheader');
 		$this->load->view('my_account/my_collections');
 		$this->load->view('templates/footer');
 	}
@@ -62,13 +59,12 @@ class My_account extends CI_Controller {
 	public function my_comments()
 	{
 		$data['title'] = 'My Comments';
-		$data['center_content'] = FALSE;
 		$data['user_comments'] = $this->my_account_model->get_user_comments(
 			$this->session->user_id
 		);
 		
 		$this->load->view('templates/header', $data);
-		$this->load->view('templates/my_account_nav');
+		$this->load->view('templates/subheader');
 		$this->load->view('my_account/my_comments', $data);
 		$this->load->view('templates/footer');
 	}

@@ -1,4 +1,4 @@
-<div id="search-results-view">
+<div id="search-results-view" class="content">
 	<span><?php echo anchor($_SERVER['HTTP_REFERER'], '<-- Go back'); ?></span>
 	<h1>Search results</h1>
 	<?php if ($search_results->num_rows() > 0) : ?>

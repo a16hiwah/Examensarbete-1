@@ -99,7 +99,6 @@ class Register extends CI_Controller {
 			);
 
 			$data['title'] = 'Create user';
-			$data['center_content'] = TRUE;
 
 			$this->load->view('templates/header', $data);
 			$this->load->view('register/create_user', $data);

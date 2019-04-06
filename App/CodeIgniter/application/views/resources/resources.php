@@ -1,4 +1,4 @@
-<div id="resources-view">
+<div id="resources-view" class="content">
 	<h1>Resources</h1>
 	<div>
 		<p>On this page you can find all resoures on this website. Filter by

@@ -1,4 +1,4 @@
-<nav id="my-account-nav">
+<nav id="subheader-nav">
 	<?php
 	$active_page = $this->router->method;
 	$pages = array('Overview', 'My Resources', 'My Collections', 'My Comments');
@@ -7,7 +7,7 @@
 	{
 		if($active_page === str_replace(' ', '_', strtolower($page)))
 		{
-			echo '<span id="active-page">'.$page.'</span>';
+			echo '<span id="active-subheader-nav">'.$page.'</span>';
 		}
 		else
 		{
@@ -16,7 +16,7 @@
 			echo $html;
 		}
 	}
-	
+
 	?>
-	<?php echo anchor('sign-out', 'Sign out'); ?>
+	<?php echo anchor('sign-out', 'Sign out', 'id="sign-out-btn"'); ?>
 </nav>

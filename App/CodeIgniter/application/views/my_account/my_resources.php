@@ -1,6 +1,6 @@
-<div id="my-resources-view" class="main-content">
+<div id="my-resources-view" class="content">
 	<h1>My Resources</h1>
-	<?php echo anchor('resources/create-resource', 'Create resource'); ?>
+	<button id="create-resrc-btn"><?php echo anchor('resources/create-resource', 'Create resource'); ?></button>
 	
 	<?php if ($user_resources->num_rows() > 0) : ?>
 		<table id="tbl-user-resources" class="table">
@@ -49,7 +49,12 @@
 					</td>
 					<td class="usr-resrc-delete">
 						<?php
-						echo anchor('resources/delete-resource/'.$row->id.'/'.$this->session->user_id, 'Delete');
+						echo anchor(
+							'resources/delete-resource/'
+							.$row->id
+							.'/'
+							.$this->session->user_id, 'Delete', 'class="delete-btn"'
+						);
 						?>
 					</td>
 				</tr>

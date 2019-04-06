@@ -16,7 +16,6 @@ class Home extends CI_Controller {
 		$get_resrc_limit = 10;
 		
 		$data['title'] = 'Home';
-		$data['center_content'] = FALSE;
 		$data['latest_resources'] = $this->home_model->get_latest_resources($get_resrc_limit);
 
 		$this->load->view('templates/header', $data);

@@ -49,13 +49,8 @@
 			}
 			else
 			{
-				echo '<span id="active-page">'.$page.'</span>';
+				echo '<span id="active-header-nav">'.$page.'</span>';
 			}
 		}
 		?>
 	</nav>
-	<?php if ($center_content) : ?>
-	<div id="content-center">
-	<?php else: ?>
-	<div id="content">
-	<?php endif;

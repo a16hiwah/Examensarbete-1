@@ -1,4 +1,4 @@
-<div id="opened-resource-view">
+<div id="opened-resource-view" class="content">
 	<div class="resource">
 		<?php foreach ($resource->result() as $row) : ?>
 		<h1><?php echo $row->title; ?></h1>
