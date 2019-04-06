@@ -39,7 +39,7 @@
 	<?php endif; ?>
 
 	<?php echo form_submit('submit', 'Sign in'); ?>
-	<?php echo anchor('register', 'Sign up'); ?>
+	<?php echo anchor('register', 'Sign up', 'id="sign-up-btn"'); ?>
 	<?php echo anchor('home', 'Cancel', 'id="cancel-btn"'); ?>
 	<?php echo form_close(); ?>
 </div>

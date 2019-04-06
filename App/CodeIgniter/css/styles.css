@@ -22,6 +22,10 @@ a {
 	color: #0c735a;
 }
 
+#filter-search-container {
+	display: flex;
+}
+
 #filter-section {
 	display: flex;
 }
@@ -34,6 +38,11 @@ a {
 #filter-section > a:first-child {
 	margin-left: -2px;
 	padding: 10px 2px;
+}
+
+#search-section {
+	margin-top: 4px;
+	margin-left: 20px;
 }
 
 
@@ -95,10 +104,20 @@ a {
 	right: 0px;
 }
 
+#sign-up-btn {
+	margin-top: 20px;
+	font-size: 14px;
+	max-width: 60px;
+}
+
 #cancel-btn {
 	margin-top: 20px;
 	font-size: 14px;
 	max-width: 60px;
+}
+
+#create-resrc-btn {
+	margin-top: 20px;
 }
 
 #create-resrc-btn > a {
@@ -121,12 +140,12 @@ a {
 }
 
 .form, .form-group {
-	margin-top: 20px;
 	display: flex;
 	flex-direction: column;
 }
 
 .form {
+	margin-top: 20px;
 	max-width: 500px;
 	min-width: 250px;
 }
@@ -151,9 +170,10 @@ input[type=submit] {
 /* TABLES */
 
 table {
-	/* width: 100%; */
+	width: 100%;
 	border-collapse: collapse;
 	font-size: 14px;
+	margin-top: 20px;
 }
   
 th, td {
@@ -161,6 +181,10 @@ th, td {
 	text-align: left;
 	vertical-align: top;
 	word-wrap: break-word;
+}
+
+thead {
+	background-color: #cccccc;
 }
 
 .usr-resrc-title, .usr-resrc-description {

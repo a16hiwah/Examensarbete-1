@@ -4,19 +4,20 @@
 		<p>On this page you can find all resoures on this website. Filter by
 			letter or perform a search to find what your looking for.</p>
 	</div>
-	<div id="filter-section">
-		<?php echo anchor('resources/view/0-9', '0-9'); ?>
-		<?php $letters = range('A', 'Z'); ?>
-		<?php foreach ($letters as $letter) : ?>
-			<?php echo anchor('resources/view/'.$letter, $letter); ?>
-		<?php endforeach; ?>
-	</div>
-	
-	<div class="search-section">
-		<?php echo form_open('search/find_resources', 'id=form-search'); ?>
-		<?php echo form_input('search-box', ''); ?>
-		<?php echo form_submit('submit', 'Search'); ?>
-		<?php echo form_close(); ?>
+	<div id="filter-search-container">
+		<div id="filter-section">
+			<?php echo anchor('resources/view/0-9', '0-9'); ?>
+			<?php $letters = range('A', 'Z'); ?>
+			<?php foreach ($letters as $letter) : ?>
+				<?php echo anchor('resources/view/'.$letter, $letter); ?>
+			<?php endforeach; ?>
+		</div>
+		<div id="search-section">
+			<?php echo form_open('search/find_resources', 'id=form-search'); ?>
+			<?php echo form_input('search-box', ''); ?>
+			<?php echo form_submit('submit', 'Search'); ?>
+			<?php echo form_close(); ?>
+		</div>
 	</div>
 
 	<?php if ($resources->num_rows() > 0) : ?>
