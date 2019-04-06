@@ -11,20 +11,19 @@ class My_account extends CI_Controller {
 		$this->load->library('session');
 	}
 
-	public function index()
+	// Redirect if user is not signed in
+	private function _check_session()
 	{
 		if ( ! $this->session->user_signed_in)
 		{
 			redirect('sign-in');
 		}
-		else
-		{
-			redirect('my-account/overview');
-		}
 	}
 
 	public function overview()
 	{
+		$this->_check_session();
+
 		$data['title'] = 'Overview';
 
 		$this->load->view('templates/header', $data);
@@ -35,6 +34,8 @@ class My_account extends CI_Controller {
 
 	public function my_resources()
 	{
+		$this->_check_session();
+
 		$data['title'] = 'My Resources';
 		$data['user_resources'] = $this->my_account_model->get_user_resources(
 			$this->session->user_id
@@ -48,6 +49,8 @@ class My_account extends CI_Controller {
 
 	public function my_collections()
 	{
+		$this->_check_session();
+
 		$data['title'] = 'My Collections';
 
 		$this->load->view('templates/header', $data);
@@ -58,6 +61,8 @@ class My_account extends CI_Controller {
 
 	public function my_comments()
 	{
+		$this->_check_session();
+		
 		$data['title'] = 'My Comments';
 		$data['user_comments'] = $this->my_account_model->get_user_comments(
 			$this->session->user_id
