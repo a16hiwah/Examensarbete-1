@@ -70,7 +70,9 @@
 
 
 
+
 /* TABLES */
+
 table {
 	/* width: 100%; */
 	border-collapse: collapse;
@@ -110,4 +112,15 @@ th, td {
 
 tr:nth-child(even) {
 	background-color: #f2f2f2;
+}
+
+
+
+
+
+/* LISTS */
+
+.two-columns {
+	column-count: 2;
+	/* column-gap: 10px; */
 }
