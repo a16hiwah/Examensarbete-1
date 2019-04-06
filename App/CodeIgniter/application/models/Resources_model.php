@@ -37,10 +37,28 @@ class Resources_model extends CI_Model {
 
 	public function delete_resource($id, $user_id)
 	{
-		$this->db->where('id', $id);
-		$this->db->where('user_id', $user_id);
+		if ($this->_delete_resrc_comments($id))
+		{
+			$this->db->where('id', $id);
+			$this->db->where('user_id', $user_id);
+			
+			if ($this->db->delete('resources'))
+			{
+				return TRUE;
+			}
+			else
+			{
+				return FALSE;
+			}
+		}
+	}
+
+	// Delete comments from resource before deleting it because of foreign key constraint
+	private function _delete_resrc_comments($resrc_id)
+	{
+		$this->db->where('comments.resource_id', $resrc_id);
 		
-		if ($this->db->delete('resources'))
+		if ($this->db->delete('comments'))
 		{
 			return TRUE;
 		}
