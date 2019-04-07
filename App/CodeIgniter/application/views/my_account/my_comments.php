@@ -36,6 +36,6 @@
 			</tbody>
 		</table>
 	<?php else: ?>
-	<div><p>You have not created any comments yet.</p></div>
+	<p class="comment-msg">You have not created any comments yet.</p>
 	<?php endif; ?>
 </div>
