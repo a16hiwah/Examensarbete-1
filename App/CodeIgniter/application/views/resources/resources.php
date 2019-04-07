@@ -64,7 +64,7 @@
 		</table>
 	<?php else: ?>
 	<div>
-		<p>There are no resources here yet. Why not
+		<p class="resrc-msg">There are no resources here yet. Why not
 			<?php echo anchor('register', 'sign up'); ?> and be the first to
 			create one?</p>
 	</div>

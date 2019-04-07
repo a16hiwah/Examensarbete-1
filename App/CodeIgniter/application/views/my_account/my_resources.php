@@ -62,6 +62,6 @@
 			</tbody>
 		</table>
 	<?php else: ?>
-	<div><p>You have not created any resources yet. Click on "Create resource" above to create a new resource.</p></div>
+	<p class="resrc-msg">You have not created any resources yet. Click on "Create resource" above to create a new resource.</p>
 	<?php endif; ?>
 </div>
