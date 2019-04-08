@@ -66,6 +66,40 @@ a {
 	margin-right: 10%;
 }
 
+#opened-resrc-description, #opened-resrc-body {
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+.comment-section {
+	margin-top: 70px;
+}
+
+#comment-section-header {
+	width: 500px;
+	border-top: 2px solid #333333;
+}
+
+#create-comment-lbl {
+	margin-top: 20px;
+}
+
+.comment {
+	margin-top: 20px;
+	width: 500px;
+	background-color: #f2f2f2;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.comment-by, .comment-created {
+	font-size: 12px;
+}
+
+.comment-body {
+	margin-top: 5px;
+}
+
 
 
 
@@ -165,6 +199,11 @@ a {
 
 input[type=submit] {
 	cursor: pointer;
+}
+
+#form-comment {
+	max-width: 500px;
+	max-height: 100px;
 }
 
 
