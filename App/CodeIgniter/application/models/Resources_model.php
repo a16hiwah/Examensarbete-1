@@ -78,6 +78,7 @@ class Resources_model extends CI_Model {
 		{
 			$this->db->where('title LIKE', $filter.'%');
 		}
+		$this->db->order_by('title', 'ASC');
 		$query = $this->db->get('resources');
 		return $query;
 	}

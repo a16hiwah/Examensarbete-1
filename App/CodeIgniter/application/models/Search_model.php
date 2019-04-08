@@ -11,6 +11,7 @@ class Search_model extends CI_Model {
 	public function find_resources($search_term)
 	{
 		$this->db->like('title', $search_term);
+		$this->db->order_by('title', 'ASC');
 		$query = $this->db->get('resources');
 		return $query;
 	}
