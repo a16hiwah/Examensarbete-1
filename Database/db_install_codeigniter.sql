@@ -21,6 +21,7 @@ CREATE TABLE resources (
     slug VARCHAR(191) NOT NULL,
     description VARCHAR(255) NOT NULL,
     body TEXT NOT NULL,
+    num_of_comments INT NOT NULL,
     created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY(id, user_id),
     FOREIGN KEY (user_id) REFERENCES users(id),

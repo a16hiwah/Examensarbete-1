@@ -132,7 +132,8 @@ class Resources extends CI_Controller {
 					'title' => $this->input->post('form-title'),
 					'slug' => $slug,
 					'description' => $this->input->post('form-description'),
-					'body' => $this->input->post('form-body')
+					'body' => $this->input->post('form-body'),
+					'num_of_comments' => 0
 				);
 
 				// Either create or update row in database

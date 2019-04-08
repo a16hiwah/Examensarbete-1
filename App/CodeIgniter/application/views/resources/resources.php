@@ -28,6 +28,7 @@
 					<th>Description</th>
 					<th>Body</th>
 					<th>Created</th>
+					<th>Comments</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -58,6 +59,7 @@
 					<td class="resrc-description"><?php echo $description; ?></td>
 					<td class="resrc-body"><?php echo $body; ?></td>
 					<td class="resrc-created"><?php echo $created; ?></td>
+					<td class="resrc-num-of-comments"><?php echo $row->num_of_comments; ?></td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>

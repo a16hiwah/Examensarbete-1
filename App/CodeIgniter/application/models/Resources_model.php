@@ -101,9 +101,16 @@ class Resources_model extends CI_Model {
 
 	public function create_comment($data)
 	{
+		// Add comment to database
 		if ($this->db->insert('comments', $data))
 		{
-			return TRUE;
+			// Update resource to reflect the total amount of comments it has
+			$this->db->set('num_of_comments', 'num_of_comments+1', FALSE);
+			$this->db->where('resources.id', $data['resource_id']);
+			if ($this->db->update('resources'))
+			{
+				return TRUE;
+			}
 		}
 		else
 		{
