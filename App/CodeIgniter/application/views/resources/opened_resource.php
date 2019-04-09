@@ -1,16 +1,25 @@
 <div id="opened-resource-view" class="content">
 	<div class="resource">
 		<?php foreach ($resource->result() as $row) : ?>
-		<h1><?php echo $row->title; ?></h1>
-		<div>
-			<div id="opened-resrc-description">Description</div>
-			<p><?php echo $row->description; ?></p>
-		</div>
-		<div>
-			<div id="opened-resrc-body">Content</div>
-			<p><?php echo nl2br($row->body); ?></p>
-		</div>
-		<?php $resource_id = $row->id; ?>
+			<h1><?php echo $row->title; ?></h1>
+			
+			<div id="opened-resrc-creator">
+				<?php foreach ($creator->result() as $row1) : ?>
+				<div>Created by <?php echo anchor('user/'.$row1->username, $row1->username); ?></div>
+					<img id="profile-img" src="<?php echo $row1->img_src ?>" alt="Profile image">
+					<div id="profile-member-since">Member since: <?php echo substr($row1->created, 0, 10); ?></div>
+				<?php endforeach; ?>
+			</div>
+			
+			<div>
+				<div id="opened-resrc-description">Description</div>
+				<p><?php echo $row->description; ?></p>
+			</div>
+			<div>
+				<div id="opened-resrc-body">Content</div>
+				<p><?php echo nl2br($row->body); ?></p>
+			</div>
+			<?php $resource_id = $row->id; ?>
 		<?php endforeach; ?>
 	</div>
 	<div class="comment-section">

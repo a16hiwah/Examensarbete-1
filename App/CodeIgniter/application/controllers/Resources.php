@@ -275,6 +275,12 @@ class Resources extends CI_Controller {
 				$data['resource']->result()[0]->id
 			);
 
+			// Get resource-creator's info
+			$this->load->model('show_user_model');
+			$data['creator'] = $this->show_user_model->get_resrc_creator(
+				$data['resource']->result()[0]->user_id
+			);
+
 			$this->load->view('templates/header', $data);
 			$this->load->view('resources/opened_resource', $data);
 			$this->load->view('templates/footer');

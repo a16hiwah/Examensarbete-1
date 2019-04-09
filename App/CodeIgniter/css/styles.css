@@ -202,6 +202,19 @@ tr:nth-child(even) {
 
 /* OPENED RESOURCE */
 
+#opened-resrc-creator {
+	padding: 10px;
+	box-sizing: border-box;
+	margin-top: 20px;
+	background-color: #f2f2f2;
+}
+
+#profile-username {
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
 #opened-resrc-description, #opened-resrc-body {
 	margin-top: 20px;
 	font-weight: bold;
