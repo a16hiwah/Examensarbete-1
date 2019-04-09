@@ -149,10 +149,20 @@ tr:nth-child(even) {
 	margin-right: 10%;
 }
 
-.two-columns {
+#latest-resources {
 	margin-top: 50px;
+	background-color: #f2f2f2;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.two-columns {
 	column-count: 2;
 	font-size: 14px;
+}
+
+.two-columns > * {
+	padding: 5px 0px;
 }
 
 

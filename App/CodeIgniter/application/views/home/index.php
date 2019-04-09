@@ -10,23 +10,26 @@
 		quod suscipit sit illum!
 	</h4>
 
-	<?php if ($latest_resources->num_rows() > 0) : ?>
-		<ul class="two-columns">
-			<?php foreach ($latest_resources->result() as $row) : ?>
-				<?php
-				// Maximum string length visible in list
-				$str_max_len = 40;
+	<div id="latest-resources">
+		<h2>Latest resources</h2>
+		<?php if ($latest_resources->num_rows() > 0) : ?>
+			<ul class="two-columns">
+				<?php foreach ($latest_resources->result() as $row) : ?>
+					<?php
+					// Maximum string length visible in list
+					$str_max_len = 40;
 
-				$title =
-					(strlen($row->title) < $str_max_len) // if
-					? $row->title // condition met
-					: substr($row->title, 0, $str_max_len-3).'...'; // else
-				
-				$created = substr(date($row->created), 0, 16);
-				?>
-				<li><?php echo anchor('resources/open/'.$row->slug, $title); ?> - <?php echo $created; ?></li>
-			<?php endforeach; ?>
-		</ul>
-	<?php endif; ?>
+					$title =
+						(strlen($row->title) < $str_max_len) // if
+						? $row->title // condition met
+						: substr($row->title, 0, $str_max_len-3).'...'; // else
+					
+					$created = substr(date($row->created), 0, 16);
+					?>
+					<li><?php echo anchor('resources/open/'.$row->slug, $title); ?> - <?php echo $created; ?></li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
+	</div>
 
 </div>
