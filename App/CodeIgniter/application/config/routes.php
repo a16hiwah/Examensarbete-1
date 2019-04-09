@@ -57,6 +57,8 @@ $route['my-account/my-comments'] = 'my_account/my_comments';
 
 $route['edit-profile'] = 'edit_user/edit_profile';
 
+$route['user/(:any)'] = 'show_user/show_user/$1';
+
 $route['sign-in'] = 'sign_in';
 $route['sign-out'] = 'sign_out';
 

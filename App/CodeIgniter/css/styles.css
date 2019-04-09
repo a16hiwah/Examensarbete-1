@@ -253,21 +253,27 @@ tr:nth-child(even) {
 	font-weight: bold;
 }
 
+#overview-usr-info {
+	margin-top: 30px;
+}
+
+
+
+
+
+/* MY ACCOUNT - OVERVIEW / SHOW USER */
+
 #profile-img {
 	width: 70px;
 	height: 70px;
 }
 
-#overview-usr-info {
-	margin-top: 30px;
-}
-
-#overview-about-me {
+#profile-biography-lbl {
 	font-size: 12px;
 	font-weight: bold;
 }
 
-#overview-biography {
+#profile-biography {
 	margin-bottom: 10px;
 	max-width: 500px;
 	text-align: justify;
@@ -275,7 +281,7 @@ tr:nth-child(even) {
 	word-wrap: break-word;
 }
 
-#overview-biography-null {
+#profile-biography-null {
 	margin-bottom: 10px;
 	max-width: 500px;
 	text-align: justify;
@@ -283,7 +289,7 @@ tr:nth-child(even) {
 	font-size: 14px;
 }
 
-#overview-member-since {
+#profile-member-since {
 	font-size: 12px;
 }
 
@@ -329,6 +335,16 @@ tr:nth-child(even) {
 
 .usr-resrc-created, .usr-resrc-edit, .usr-resrc-delete {
 	max-width: 200px;
+}
+
+
+
+
+
+/* SHOW USER */
+
+#show_user_header {
+	margin-bottom: 20px;
 }
 
 
