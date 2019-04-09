@@ -114,12 +114,15 @@ class Register extends CI_Controller {
 			else
 			{
 				// Validation passed, now escape the data
+				
+				$default_image = '1'; // solid_green.png
 				$data = array(
 					'username' => $this->input->post('form-username'),
 					'password' => password_hash(
 						$this->input->post('form-password'),
 						PASSWORD_DEFAULT
-					)
+					),
+					'image' => $default_image
 				);
 
 				if ($this->register_model->create_user($data))

@@ -55,6 +55,8 @@ $route['my-account/my-resources'] = 'my_account/my_resources';
 $route['my-account/my-collections'] = 'my_account/my_collections';
 $route['my-account/my-comments'] = 'my_account/my_comments';
 
+$route['edit-profile'] = 'edit_user/edit_profile';
+
 $route['sign-in'] = 'sign_in';
 $route['sign-out'] = 'sign_out';
 

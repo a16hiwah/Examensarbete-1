@@ -8,6 +8,16 @@ class My_account_model extends CI_Model {
 		$this->load->database();
 	}
 
+	// Get user and profile image info
+	public function get_user_info($user_id)
+	{
+		$this->db->select('users.biography, users.created, profile_images.img_src');
+		$this->db->join('profile_images', 'users.image = profile_images.id', 'inner');
+		$this->db->where('users.id', $user_id);
+		$query = $this->db->get('users');
+		return $query->result();
+	}
+
 	public function get_user_resources($user_id)
 	{
 		$this->db->where('user_id', $user_id);

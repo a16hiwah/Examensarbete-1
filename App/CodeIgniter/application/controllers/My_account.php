@@ -25,10 +25,11 @@ class My_account extends CI_Controller {
 		$this->_check_session();
 
 		$data['title'] = 'Overview';
+		$data['user_info'] = $this->my_account_model->get_user_info($this->session->user_id);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/subheader');
-		$this->load->view('my_account/overview');
+		$this->load->view('my_account/overview', $data);
 		$this->load->view('templates/footer');
 	}
 

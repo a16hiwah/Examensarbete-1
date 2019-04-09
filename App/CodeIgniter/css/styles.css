@@ -22,82 +22,30 @@ a {
 	color: #0c735a;
 }
 
-#filter-search-container {
-	display: flex;
-}
-
-#filter-section {
-	display: flex;
-}
-
-#filter-section > a:not(:first-child) {
-	margin: 0px 3px;
-	padding: 10px 2px;
-}
-
-#filter-section > a:first-child {
-	margin-left: -2px;
-	padding: 10px 2px;
-}
-
-#search-section {
-	margin-top: 4px;
-	margin-left: 20px;
-}
-
-.resrc-msg, .comment-msg {
-	margin-top: 20px;
-}
-
-
-
-
-
-/* VIEWS */
-
 .content {
 	margin: 20px;
 }
 
-#homepage-view {
-	margin-top: 20px;
-	margin-bottom: 20px;
-	margin-left: 10%;
-	margin-right: 10%;
-}
-
-#opened-resrc-description, #opened-resrc-body {
-	margin-top: 20px;
-	font-weight: bold;
-}
-
-.comment-section {
-	margin-top: 70px;
-}
-
-#comment-section-header {
-	width: 500px;
-	border-top: 2px solid #333333;
-}
-
-#create-comment-lbl {
+table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 14px;
 	margin-top: 20px;
 }
+  
+th, td {
+	padding: 5px 10px;
+	text-align: left;
+	vertical-align: top;
+	word-wrap: break-word;
+}
 
-.comment {
-	margin-top: 20px;
-	width: 500px;
+thead {
+	background-color: #cccccc;
+}
+
+tr:nth-child(even) {
 	background-color: #f2f2f2;
-	padding: 10px;
-	box-sizing: border-box;
-}
-
-.comment-by, .comment-created {
-	font-size: 12px;
-}
-
-.comment-body {
-	margin-top: 5px;
 }
 
 
@@ -166,6 +114,223 @@ a {
 	color: #990000;
 }
 
+#edit-usr-btn {
+	display: block;
+	font-size: 12px;
+	margin-top: 10px;
+	max-width: 30px;
+}
+
+
+
+
+
+/* MESSAGES */
+
+.resrc-msg, .comment-msg {
+	margin-top: 20px;
+}
+
+#overview-msg {
+	max-width: 500px;
+	text-align: justify;
+}
+
+
+
+
+
+/* HOMEPAGE */
+
+#homepage-view {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.two-columns {
+	margin-top: 50px;
+	column-count: 2;
+	font-size: 14px;
+}
+
+
+
+
+
+/* RESOURCES */
+
+.resrc-title, .resrc-description {
+	max-width: 200px;
+}
+
+.resrc-body {
+	max-width: 300px;
+}
+
+.resrc-created {
+	max-width: 200px;
+}
+
+#filter-search-container {
+	display: flex;
+}
+
+#filter-section {
+	display: flex;
+}
+
+#filter-section > a:not(:first-child) {
+	margin: 0px 3px;
+	padding: 10px 2px;
+}
+
+#filter-section > a:first-child {
+	margin-left: -2px;
+	padding: 10px 2px;
+}
+
+#search-section {
+	margin-top: 4px;
+	margin-left: 20px;
+}
+
+
+
+
+
+/* OPENED RESOURCE */
+
+#opened-resrc-description, #opened-resrc-body {
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+
+
+
+
+/* COMMENTS - RESOURCES */
+
+.comment-section {
+	margin-top: 70px;
+}
+
+#comment-section-header {
+	width: 500px;
+	border-top: 2px solid #333333;
+}
+
+#create-comment-lbl {
+	margin-top: 20px;
+}
+
+.comment {
+	margin-top: 20px;
+	width: 500px;
+	background-color: #f2f2f2;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.comment-by, .comment-created {
+	font-size: 12px;
+}
+
+.comment-body {
+	margin-top: 5px;
+}
+
+
+
+
+
+/* MY ACCOUNT - OVERVIEW */
+
+#welcome-user {
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+#profile-img {
+	width: 70px;
+	height: 70px;
+}
+
+#overview-usr-info {
+	margin-top: 30px;
+}
+
+#overview-about-me {
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#overview-biography {
+	margin-bottom: 10px;
+	max-width: 500px;
+	text-align: justify;
+	font-size: 14px;
+	word-wrap: break-word;
+}
+
+#overview-biography-null {
+	margin-bottom: 10px;
+	max-width: 500px;
+	text-align: justify;
+	font-style: italic;
+	font-size: 14px;
+}
+
+#overview-member-since {
+	font-size: 12px;
+}
+
+
+
+
+/* MY ACCOUNT - OVERVIEW - EDIT USER/PROFILE */
+
+.img-radio-select {
+	width: 70px;
+	height: 70px;
+	cursor: pointer;
+}
+
+.profile-img-radio { 
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+  
+.profile-img-radio:checked + img {
+	outline: 3px solid #333333;
+}
+
+#profile-img-lbl {
+	margin-bottom: 5px;
+}
+
+
+
+
+
+/* MY ACCOUNT - MY RESOURCES */
+
+.usr-resrc-title, .usr-resrc-description {
+	max-width: 200px;
+}
+
+.usr-resrc-body {
+	max-width: 300px;
+}
+
+.usr-resrc-created, .usr-resrc-edit, .usr-resrc-delete {
+	max-width: 200px;
+}
+
 
 
 
@@ -194,7 +359,7 @@ a {
 
 .validation-error {
 	max-width: 250px;
-	color: red !important;
+	color: #e60000 !important;
 }
 
 input[type=submit] {
@@ -205,68 +370,3 @@ input[type=submit] {
 	max-width: 500px;
 	max-height: 100px;
 }
-
-
-
-
-
-/* TABLES */
-
-table {
-	width: 100%;
-	border-collapse: collapse;
-	font-size: 14px;
-	margin-top: 20px;
-}
-  
-th, td {
-	padding: 5px 10px;
-	text-align: left;
-	vertical-align: top;
-	word-wrap: break-word;
-}
-
-thead {
-	background-color: #cccccc;
-}
-
-.usr-resrc-title, .usr-resrc-description {
-	max-width: 200px;
-}
-
-.usr-resrc-body {
-	max-width: 300px;
-}
-
-.usr-resrc-created, .usr-resrc-edit, .usr-resrc-delete {
-	max-width: 200px;
-}
-
-.resrc-title, .resrc-description {
-	max-width: 200px;
-}
-
-.resrc-body {
-	max-width: 300px;
-}
-
-.resrc-created {
-	max-width: 200px;
-}
-
-tr:nth-child(even) {
-	background-color: #f2f2f2;
-}
-
-
-
-
-
-/* LISTS */
-
-.two-columns {
-	margin-top: 50px;
-	column-count: 2;
-	font-size: 14px;
-}
-
