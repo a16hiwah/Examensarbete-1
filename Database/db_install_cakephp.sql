@@ -3,17 +3,6 @@
 CREATE DATABASE IF NOT EXISTS cakephp;
 USE cakephp;
 
-CREATE TABLE users (
-	id INT AUTO_INCREMENT,
-    username VARCHAR(64) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    image INT,
-    biography VARCHAR(255),
-    created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    PRIMARY KEY (id),
-	UNIQUE KEY (username)
-) CHARSET=utf8mb4;
-
 CREATE TABLE profile_images (
     id INT AUTO_INCREMENT,
     img_name VARCHAR(255) NOT NULL,
@@ -21,8 +10,20 @@ CREATE TABLE profile_images (
     PRIMARY KEY (id)
 );
 
-INSERT INTO profile_images (img_name, img_src) VALUES ('Solid green', 'http://localhost/Examensarbete/App/CodeIgniter/images/profile_images/solid_green.png');
-INSERT INTO profile_images (img_name, img_src) VALUES ('Solid blue', 'http://localhost/Examensarbete/App/CodeIgniter/images/profile_images/solid_blue.png');
+INSERT INTO profile_images (img_name, img_src) VALUES ('Solid green', 'http://localhost/Examensarbete/App/CakePHP/webroot/img/profile_images/solid_green.png');
+INSERT INTO profile_images (img_name, img_src) VALUES ('Solid blue', 'http://localhost/Examensarbete/App/CakePHP/webroot/img/profile_images/solid_blue.png');
+
+CREATE TABLE users (
+	id INT AUTO_INCREMENT,
+    username VARCHAR(64) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    image INT,
+    biography VARCHAR(255),
+    created DATETIME,
+    PRIMARY KEY (id),
+    FOREIGN KEY (image) REFERENCES profile_images(id),
+	UNIQUE KEY (username)
+) CHARSET=utf8mb4;
 
 CREATE TABLE resources (
     id INT AUTO_INCREMENT,
@@ -32,7 +33,7 @@ CREATE TABLE resources (
     description VARCHAR(255) NOT NULL,
     body TEXT NOT NULL,
     num_of_comments INT NOT NULL,
-    created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created DATETIME,
     PRIMARY KEY (id, user_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     UNIQUE KEY (slug)
@@ -45,7 +46,7 @@ CREATE TABLE collections (
     slug VARCHAR(191) NOT NULL,
     description VARCHAR(255) NOT NULL,
     body TEXT,
-    created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created DATETIME,
     PRIMARY KEY (id, user_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     UNIQUE KEY (slug)
@@ -64,7 +65,7 @@ CREATE TABLE comments (
     user_id INT,
     resource_id INT,
     body VARCHAR(2000) NOT NULL,
-    created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created DATETIME,
     PRIMARY KEY (id, user_id, resource_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (resource_id) REFERENCES resources(id)
