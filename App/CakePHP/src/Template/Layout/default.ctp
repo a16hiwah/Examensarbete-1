@@ -1,57 +1,67 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       https://opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = 'CakePHP: the rapid development php framework';
-?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
-
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('style.css') ?>
-
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<?= $this->Html->css('styles.css') ?>
+	<title><?php echo $title; ?></title>
 </head>
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
-            </ul>
-        </div>
-    </nav>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
-    </div>
-    <footer>
-    </footer>
+	<nav id="header-nav">
+		<?php
+		$active_page = $this->request->params['controller'];
+		$pages = array(
+			'Home' => 'Home',
+			'Resources' => 'Resources',
+			'Collections' => 'Collections',
+			'MyAccount' => 'My account'
+		);
+		
+		// Check what the active page is to determine what links should be clickable
+		foreach ($pages as $controller => $page)
+		{
+			$is_anchor = NULL;
+
+			// There should not be a link to the currently active page.
+			// "Resources" is a special case that will be evaluated in the else block.
+			if ($active_page === $controller && $page !== 'Resources')
+			{
+				$is_anchor = FALSE;
+			}
+			else
+			{
+				$active_subpage = $this->request->params['action'];
+
+				// When a resource is opened (action = "open" and not "view"),
+				// it should be possible to navigate back to the "Resources"
+				// page through the top navigation.
+				if ($page !== 'Resources' OR $active_subpage !== 'view')
+				{
+					$is_anchor = TRUE;
+				}
+				else
+				{
+					$is_anchor = FALSE;
+				}
+			}
+
+			if ($is_anchor)
+			{
+				$href = '/'.str_replace(' ', '-', strtolower($page));
+				echo $this->Html->link(
+					$page,
+					$href
+				);
+			}
+			else
+			{
+				echo '<span id="active-header-nav">'.$page.'</span>';
+			}
+		}
+		?>
+	</nav>
+<div class="container clearfix">
+    <?= $this->fetch('content') ?>
+</div>
 </body>
 </html>
