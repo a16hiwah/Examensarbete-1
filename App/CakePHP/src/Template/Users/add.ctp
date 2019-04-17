@@ -16,11 +16,18 @@ $this->Form->templates([
 
 <div id="create-user-view" class="form-view">
         <?= $this->Form->create($user, ['id' => 'form-create-user', 'class' => 'form']) ?>
-		    <?php echo $this->Form->input('username', ['id' => 'form-username']); ?>
-            <?php echo $this->Form->input('password', ['id' => 'form-password']); ?>
-            <?php echo $this->Form->input('passconf', ['id' => 'form-passconf', 'type' => 'password', 'label' => 'Confirm password']); ?>
-            <?php echo $this->Form->input('profile_image_id', ['type' => 'hidden', 'value' => '1']); ?>
-            <input type="submit" name="submit" value="Create account">
-            <?php echo $this->Html->link('Cancel', '/users/login', ['id' => 'cancel-btn']) ?>
+        <?= $this->Form->input('username', ['id' => 'form-username']); ?>
+        <?= $this->Form->input('password', ['id' => 'form-password']); ?>
+        <?= $this->Form->input(
+            'passconf',
+            [
+                'id' => 'form-passconf',
+                'type' => 'password',
+                'label' => 'Confirm password'
+            ]
+        ); ?>
+        <?= $this->Form->input('profile_image_id', ['type' => 'hidden', 'value' => '1']); ?>
+        <input type="submit" name="submit" value="Create account">
+        <?= $this->Html->link('Cancel', '/users/login', ['id' => 'cancel-btn']) ?>
         <?= $this->Form->end() ?>
 </div>

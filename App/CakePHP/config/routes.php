@@ -63,6 +63,10 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
 
+    $routes->connect('/my-account/overview', ['controller' => 'MyAccount', 'action' => 'overview']);
+    $routes->connect('/my-account/my-resources', ['controller' => 'MyAccount', 'action' => 'myResources']);
+    $routes->connect('/my-account/my-collections', ['controller' => 'MyAccount', 'action' => 'myCollections']);
+    $routes->connect('/my-account/my-comments', ['controller' => 'MyAccount', 'action' => 'myComments']);
     $routes->connect('/my-account', ['controller' => 'MyAccount', 'action' => 'overview']);
 
     /**

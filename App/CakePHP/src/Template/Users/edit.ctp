@@ -33,12 +33,11 @@ $this->Form->templates([
 					'id' => 'profile-img-'.$img->id,
 					'class' => 'profile-img-radio',
 					'value' => $img->id,
-
-					// User's currently selected image should be checked
-					'checked' => ($img->id === $user->profile_image_id) ? TRUE : FALSE
 				);
 
                 echo '<label>';
+
+                // User's currently selected image should be checked
                 if($img->id === $user->profile_image_id) {
                     echo '<input type="radio" id="'.$attr['id']
                     .'" class="'.$attr['class']
@@ -52,7 +51,6 @@ $this->Form->templates([
                     .'" value="'.$attr['value']
                     .'" />';
                 }
-                // echo '<input type="radio" id="'.$attr['id'].'" class="'.$attr['class'].'" name="'.$attr['name'].'" value="'.$attr['value'].'" checked="'.$attr['checked'].'" />';
 				echo '<img class="img-radio-select" src="'.$img->img_src.'" alt="'.$img->img_name.'">';
 				echo '</label>';
 			}
@@ -60,10 +58,10 @@ $this->Form->templates([
 		</div>
     </div>
     <div class="form-group">
-        <?php echo $this->Form->label('biography', 'Biography'); ?>
-        <?php echo $this->Form->textarea('biography', ['id' => 'form-biography', 'cols' => '40', 'rows' => '10']); ?>
+        <?= $this->Form->label('biography', 'Biography'); ?>
+        <?= $this->Form->textarea('biography', ['id' => 'form-biography', 'cols' => '40', 'rows' => '10']); ?>
     </div>
     <input type="submit" name="submit" value="Edit profile">
-    <?php echo $this->Html->link('Cancel', '/my-account', ['id' => 'cancel-btn']) ?>
+    <?= $this->Html->link('Cancel', '/my-account', ['id' => 'cancel-btn']) ?>
     <?= $this->Form->end() ?>
 </div>

@@ -33,4 +33,29 @@ class MyAccountController extends AppController
             'created'
         ));
     }
+
+    public function myResources()
+    {
+        $title = 'My Resources';
+        $this->set(compact(
+            'title'
+        ));
+    }
+
+    public function myCollections()
+    {
+        $title = 'My Collections';
+        $this->set(compact(
+            'title'
+        ));
+    }
+
+    public function myComments()
+    {
+        $title = 'My Comments';
+        $this->set(compact(
+            'title'
+        ));
+    }
+
 }

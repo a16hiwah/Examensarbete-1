@@ -4,12 +4,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<?= $this->Html->css('styles.css') ?>
-	<title><?php echo $title; ?></title>
+	<title><?= $title; ?></title>
 </head>
 <body>
 	<nav id="header-nav">
 		<?php
-		$active_page = $this->request->getParam('controller');
+        $active_page = $this->request->getParam('controller');
+        $active_subpage = $this->request->getParam('action');
 		$pages = array(
 			'Home' => 'Home',
 			'Resources' => 'Resources',
@@ -30,8 +31,6 @@
 			}
 			else
 			{
-				$active_subpage = $this->request->getParam('action');
-
 				// When a resource is opened (action = "open" and not "view"),
 				// it should be possible to navigate back to the "Resources"
 				// page through the top navigation.
@@ -59,7 +58,38 @@
 			}
 		}
 		?>
-	</nav>
+    </nav>
+    <?php if($active_page === "MyAccount") : ?>
+        <nav id="subheader-nav">
+            <?php
+            $pages = array('Overview', 'My Resources', 'My Collections', 'My Comments');
+            $pages = array(
+                'overview' => 'Overview',
+                'myResources' => 'My Resources',
+                'myCollections' => 'My Collections',
+                'myComments' => 'My Comments'
+            );
+
+            foreach ($pages as $action => $page)
+            {
+                if($active_subpage === $action)
+                {
+                    echo '<span id="active-subheader-nav">'.$page.'</span>';
+                }
+                else
+                {
+                    $href = '/my-account/'.str_replace(' ', '-', strtolower($page));
+                    echo $this->Html->link(
+                        $page,
+                        $href
+                    );
+                }
+            }
+
+            ?>
+            <?= $this->Html->link('Sign out', '/users/logout', ['id' => 'sign-out-btn']) ?>
+        </nav>
+    <?php endif; ?>
 	<?= $this->fetch('content') ?>
 </body>
 </html>
