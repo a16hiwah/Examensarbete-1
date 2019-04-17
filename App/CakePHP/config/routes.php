@@ -63,6 +63,8 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
 
+    $routes->connect('/my-account', ['controller' => 'MyAccount', 'action' => 'overview']);
+
     /**
      * Connect catchall routes for all controllers.
      *

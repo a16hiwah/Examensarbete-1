@@ -9,7 +9,7 @@
 <body>
 	<nav id="header-nav">
 		<?php
-		$active_page = $this->request->params['controller'];
+		$active_page = $this->request->getParam('controller');
 		$pages = array(
 			'Home' => 'Home',
 			'Resources' => 'Resources',
@@ -30,7 +30,7 @@
 			}
 			else
 			{
-				$active_subpage = $this->request->params['action'];
+				$active_subpage = $this->request->getParam('action');
 
 				// When a resource is opened (action = "open" and not "view"),
 				// it should be possible to navigate back to the "Resources"
@@ -60,8 +60,6 @@
 		}
 		?>
 	</nav>
-<div class="container clearfix">
-    <?= $this->fetch('content') ?>
-</div>
+	<?= $this->fetch('content') ?>
 </body>
 </html>

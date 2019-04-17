@@ -17,11 +17,11 @@ CREATE TABLE users (
 	id INT AUTO_INCREMENT,
     username VARCHAR(64) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    image INT,
+    profile_image_id INT NOT NULL,
     biography VARCHAR(255),
     created DATETIME,
     PRIMARY KEY (id),
-    FOREIGN KEY (image) REFERENCES profile_images(id),
+    FOREIGN KEY (profile_image_id) REFERENCES profile_images(id),
 	UNIQUE KEY (username)
 ) CHARSET=utf8mb4;
 
