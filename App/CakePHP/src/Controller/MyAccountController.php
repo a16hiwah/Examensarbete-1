@@ -8,12 +8,13 @@ class MyAccountController extends AppController
 {
     public function overview()
     {
+        $title = 'Overview';
+        
         $users = $this->loadModel('Users');
         $user = $users->get($this->Auth->user('id'), [
             'contain' => ['ProfileImages']
         ]);
 
-        $title = 'Overview';
         $uid = $this->Auth->user('id');
         $username = $this->Auth->user('username');
         $profile_img = $user->profile_image->img_src;
@@ -37,9 +38,17 @@ class MyAccountController extends AppController
     public function myResources()
     {
         $title = 'My Resources';
-        $this->set(compact(
-            'title'
-        ));
+
+        $resources = $this->loadModel('Resources');
+        $query = $resources->find('all', [
+            'conditions' => ['Resources.user_id' => $this->Auth->user('id')]
+        ]);
+
+        if($query->isEmpty()) {
+            $query = null;
+        }
+
+        $this->set(compact('title', 'query'));
     }
 
     public function myCollections()

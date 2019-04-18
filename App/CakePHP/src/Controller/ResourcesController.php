@@ -107,41 +107,48 @@ class ResourcesController extends AppController
      * Edit method
      *
      * @param string|null $id Resource id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @param string|null $resrc_id Resource user_id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, or if user is not allowed to edit.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($id = null, $resrc_uid = null)
     {
-        $resource = $this->Resources->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $resource = $this->Resources->patchEntity($resource, $this->request->getData());
-            if ($this->Resources->save($resource)) {
-                $this->Flash->success(__('The resource has been saved.'));
+        // Only allow users to edit their own resources
+        if ($resrc_uid == $this->Auth->user('id')) {
+            $resource = $this->Resources->get($id);
 
-                return $this->redirect(['action' => 'index']);
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $resource = $this->Resources->patchEntity($resource, $this->request->getData());
+                if ($this->Resources->save($resource)) {
+                    return $this->redirect('/my-account/my-resources');
+                }
             }
-            $this->Flash->error(__('The resource could not be saved. Please, try again.'));
+            
+            $this->set(compact('resource'));
+        } else {
+            return $this->redirect('/my-account/my-resources');
         }
-        $users = $this->Resources->Users->find('list', ['limit' => 200]);
-        $this->set(compact('resource', 'users'));
     }
 
     /**
      * Delete method
      *
      * @param string|null $id Resource id.
-     * @return \Cake\Http\Response|null Redirects to index.
+     * @param string|null $resrc_id Resource user_id.
+     * @return \Cake\Http\Response|null Redirects to my-account/my-resources.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($id = null, $resrc_uid = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $resource = $this->Resources->get($id);
-        if ($this->Resources->delete($resource)) {
-        }
 
-        return $this->redirect(['action' => 'index']);
+        if ($resrc_uid == $this->Auth->user('id')) {
+            $resource = $this->Resources->get($id);
+            
+            if ($this->Resources->delete($resource)) {
+                return $this->redirect('/my-account/my-resources');
+            }
+        }
+        
     }
 }
