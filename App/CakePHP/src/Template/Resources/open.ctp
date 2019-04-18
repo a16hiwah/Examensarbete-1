@@ -4,7 +4,7 @@
 			<h1><?= $row->title ?></h1>
 			
 			<div id="opened-resrc-creator">
-				<div>Created by <?= $this->Html->link($row->user->username, '/users/'.$row->user->username) ?></div>
+				<div>Created by <?= $this->Html->link($row->user->username, '/users/view/'.$row->user->username) ?></div>
 				<img id="profile-img" src="<?= $row->user->profile_image->img_src ?>" alt="Profile image">
 				<?php $created = substr($row->created->i18nFormat('yyyy-MM-dd HH:mm:ss'), 0, 10); ?>
 				<div id="profile-member-since">Member since: <?= $created ?></div>

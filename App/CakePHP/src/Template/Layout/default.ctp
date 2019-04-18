@@ -4,13 +4,15 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<?= $this->Html->css('styles.css') ?>
-	<title><?= $title; ?></title>
+	<title><?= $title ?></title>
 </head>
 <body>
 	<nav id="header-nav">
 		<?php
         $active_page = $this->request->getParam('controller');
-        $active_subpage = $this->request->getParam('action');
+		$active_subpage = $this->request->getParam('action');
+		
+		// [controller => Link text]
 		$pages = array(
 			'Home' => 'Home',
 			'Resources' => 'Resources',
@@ -40,7 +42,14 @@
 				}
 				else
 				{
-					$is_anchor = FALSE;
+					// Having a "view" action in other controllers than
+					// "Resources" should not impact navigation.
+					if ($active_subpage === 'view' && $active_page === 'Resources') {
+						$is_anchor = FALSE;
+					} else {
+						$is_anchor = TRUE;
+					}
+					
 				}
 			}
 
@@ -61,8 +70,9 @@
     </nav>
     <?php if($active_page === "MyAccount") : ?>
         <nav id="subheader-nav">
-            <?php
-            $pages = array('Overview', 'My Resources', 'My Collections', 'My Comments');
+			<?php
+			
+			// [action => Link text]
             $pages = array(
                 'overview' => 'Overview',
                 'myResources' => 'My Resources',

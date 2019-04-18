@@ -31,17 +31,31 @@ class UsersController extends AppController
     /**
      * View method
      *
-     * @param string|null $id User id.
+     * @param string|null $id User username.
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($username = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => ['ProfileImages', 'Collections', 'Comments', 'Resources']
-        ]);
+        $title = 'User overview';
+        $username_search = $username;
 
-        $this->set('user', $user);
+        $query = $this->Users->findByUsername($username);
+        $query->select(
+            [
+                'Users.username',
+                'Users.biography',
+                'Users.created',
+                'ProfileImages.img_src'
+            ]
+        );
+        $query->contain(['ProfileImages']);
+
+        if($query->isEmpty()) {
+            $query = null;
+        }
+
+        $this->set(compact('title', 'username_search', 'query'));
     }
 
     /**
