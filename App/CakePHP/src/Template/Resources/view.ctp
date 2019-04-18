@@ -12,10 +12,10 @@
 	</div>
 	<div id="filter-search-container">
 		<div id="filter-section">
-			<?= $this->Html->link('0-9', '/resources/view/0-9'); ?>
+			<?= $this->Html->link('0-9', '/resources/view/0-9') ?>
 			<?php $letters = range('A', 'Z'); ?>
 			<?php foreach ($letters as $letter) : ?>
-				<?= $this->Html->link($letter, '/resources/view/'.strtolower($letter)); ?>
+				<?= $this->Html->link($letter, '/resources/view/'.strtolower($letter)) ?>
 			<?php endforeach; ?>
 		</div>
 	</div>
@@ -54,11 +54,11 @@
 				$created = substr(date($row->created->i18nFormat('yyyy-MM-dd HH:mm:ss')), 0, 16);
 				?>
 				<tr>
-					<td class="resrc-title"><?= $this->Html->link($title, '/resources/open/'.$row->slug); ?></td>
-					<td class="resrc-description"><?= $description; ?></td>
-					<td class="resrc-body"><?= $body; ?></td>
-					<td class="resrc-created"><?= $created; ?></td>
-					<td class="resrc-num-of-comments"><?= $row->num_of_comments; ?></td>
+					<td class="resrc-title"><?= $this->Html->link($title, '/resources/open/'.$row->slug) ?></td>
+					<td class="resrc-description"><?= $description ?></td>
+					<td class="resrc-body"><?= $body ?></td>
+					<td class="resrc-created"><?= $created ?></td>
+					<td class="resrc-num-of-comments"><?= $row->num_of_comments ?></td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>
@@ -66,7 +66,7 @@
 	<?php else: ?>
 	<div>
 		<p class="resrc-msg">There are no resources here yet. Why not
-			<?= $this->Html->link('sign up', '/users/add'); ?> and be the first to
+			<?= $this->Html->link('sign up', '/users/add') ?> and be the first to
 			create one?</p>
 	</div>
 	<?php endif; ?>

@@ -16,8 +16,8 @@ $this->Form->templates([
 
 <div id="create-user-view" class="form-view">
         <?= $this->Form->create($user, ['id' => 'form-create-user', 'class' => 'form']) ?>
-        <?= $this->Form->input('username', ['id' => 'form-username']); ?>
-        <?= $this->Form->input('password', ['id' => 'form-password']); ?>
+        <?= $this->Form->input('username', ['id' => 'form-username']) ?>
+        <?= $this->Form->input('password', ['id' => 'form-password']) ?>
         <?= $this->Form->input(
             'passconf',
             [
@@ -26,7 +26,7 @@ $this->Form->templates([
                 'label' => 'Confirm password'
             ]
         ); ?>
-        <?= $this->Form->input('profile_image_id', ['type' => 'hidden', 'value' => '1']); ?>
+        <?= $this->Form->input('profile_image_id', ['type' => 'hidden', 'value' => '1']) ?>
         <input type="submit" name="submit" value="Create account">
         <?= $this->Html->link('Cancel', '/users/login', ['id' => 'cancel-btn']) ?>
         <?= $this->Form->end() ?>

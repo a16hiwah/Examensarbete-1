@@ -25,7 +25,7 @@ $this->Form->templates([
     echo $this->Form->input('description', ['id' => 'form-description']);
     ?>
     <div class="form-group">
-        <?= $this->Form->label('form-body', 'Body'); ?>
+        <?= $this->Form->label('form-body', 'Body') ?>
         <?= $this->Form->textarea(
             'body',
             [
@@ -33,10 +33,10 @@ $this->Form->templates([
                 'cols' => '40',
                 'rows' => '10'
             ]
-        ); ?>
+        ) ?>
     </div>
-    <?= $this->Form->input('num_of_comments', ['type' => 'hidden', 'value' => '0']); ?>
+    <?= $this->Form->input('num_of_comments', ['type' => 'hidden', 'value' => '0']) ?>
     <input type="submit" name="submit" value="Create resource">
-    <?= $this->Html->link('Cancel', '/my-account/my-resources', ['id' => 'cancel-btn']); ?>
-    <?= $this->Form->end(); ?>
+    <?= $this->Html->link('Cancel', '/my-account/my-resources', ['id' => 'cancel-btn']) ?>
+    <?= $this->Form->end() ?>
 </div>

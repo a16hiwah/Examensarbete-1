@@ -11,10 +11,10 @@ $this->Form->templates([
 
 <div id="sign-in-view" class="form-view">
         <?= $this->Form->create(null, ['id' => 'form-sign-in', 'class' => 'form']) ?>
-		    <?php echo $this->Form->input('username', ['id' => 'form-username']); ?>
-            <?php echo $this->Form->input('password', ['id' => 'form-password']); ?>
+		    <?= $this->Form->input('username', ['id' => 'form-username']) ?>
+            <?= $this->Form->input('password', ['id' => 'form-password']) ?>
 			<input type="submit" name="submit" value="Sign in">
-			<?php echo $this->Html->link('Sign up', '/users/add', ['id' => 'sign-up-btn']) ?>
-            <?php echo $this->Html->link('Cancel', '/home', ['id' => 'cancel-btn']) ?>
+			<?= $this->Html->link('Sign up', '/users/add', ['id' => 'sign-up-btn']) ?>
+            <?= $this->Html->link('Cancel', '/home', ['id' => 'cancel-btn']) ?>
         <?= $this->Form->end() ?>
 </div>

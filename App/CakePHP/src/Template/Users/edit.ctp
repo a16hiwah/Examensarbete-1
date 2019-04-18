@@ -58,8 +58,8 @@ $this->Form->templates([
 		</div>
     </div>
     <div class="form-group">
-        <?= $this->Form->label('biography', 'Biography'); ?>
-        <?= $this->Form->textarea('biography', ['id' => 'form-biography', 'cols' => '40', 'rows' => '10']); ?>
+        <?= $this->Form->label('biography', 'Biography') ?>
+        <?= $this->Form->textarea('biography', ['id' => 'form-biography', 'cols' => '40', 'rows' => '10']) ?>
     </div>
     <input type="submit" name="submit" value="Edit profile">
     <?= $this->Html->link('Cancel', '/my-account', ['id' => 'cancel-btn']) ?>
