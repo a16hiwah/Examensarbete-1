@@ -102,6 +102,8 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
+                $_SESSION['uid'] = $this->Auth->user('id');
+                $_SESSION['user_signed_in'] = true;
                 return $this->redirect($this->Auth->redirectUrl());
             }
         }

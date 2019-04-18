@@ -63,6 +63,8 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
 
+    $routes->connect('/resources/open/*', ['controller' => 'Resources', 'action' => 'open']);
+
     $routes->connect('/my-account/overview', ['controller' => 'MyAccount', 'action' => 'overview']);
     $routes->connect('/my-account/my-resources', ['controller' => 'MyAccount', 'action' => 'myResources']);
     $routes->connect('/my-account/my-collections', ['controller' => 'MyAccount', 'action' => 'myCollections']);
