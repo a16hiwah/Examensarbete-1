@@ -83,6 +83,34 @@ class ResourcesController extends AppController
     }
 
     /**
+     * Search method
+     *
+     * @return \Cake\Http\Response|void
+     */
+    public function search()
+    {
+        $searchTerm = ($_POST['search-box'] !== '') ? $_POST['search-box'] : null;
+        
+        if ($searchTerm !== null) {
+            $title = 'Search results';
+
+            $query = $this->Resources->find('all', [
+                'conditions' => ['Resources.title LIKE ' => '%'.$searchTerm.'%'],
+                'order' => ['Resources.title ASC']
+            ]);
+
+            if($query->isEmpty()) {
+                $query = null;
+            }
+
+            $this->set(compact('title', 'query'));
+
+        } else { // Go back to previous page if search box is empty
+            $this->redirect($this->referer());
+        }
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
@@ -125,6 +153,7 @@ class ResourcesController extends AppController
             }
             
             $this->set(compact('resource'));
+            
         } else {
             return $this->redirect('/my-account/my-resources');
         }

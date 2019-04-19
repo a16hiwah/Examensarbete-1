@@ -18,6 +18,12 @@
 				<?= $this->Html->link($letter, '/resources/view/'.strtolower($letter)) ?>
 			<?php endforeach; ?>
 		</div>
+		<div id="search-section">
+            <?= $this->Form->create(null, ['url' => ['action' => 'search']], ['id' => 'form-search']) ?>
+            <input type="text" name="search-box" value="">
+            <input type="submit" name="submit" value="Search">
+            <?= $this->Form->end() ?>
+		</div>
 	</div>
     <?php if ($query !== null) : ?>
 		<table id="tbl-resources">
