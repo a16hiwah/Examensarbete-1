@@ -15,7 +15,7 @@ class ResourcesController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['view', 'open']);
+        $this->Auth->allow(['view', 'open', 'search']);
     }
 
     /**
