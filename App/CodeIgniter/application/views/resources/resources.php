@@ -9,7 +9,7 @@
 			<?php echo anchor('resources/view/0-9', '0-9'); ?>
 			<?php $letters = range('A', 'Z'); ?>
 			<?php foreach ($letters as $letter) : ?>
-				<?php echo anchor('resources/view/'.$letter, $letter); ?>
+				<?php echo anchor('resources/view/'.strtolower($letter), $letter); ?>
 			<?php endforeach; ?>
 		</div>
 		<div id="search-section">

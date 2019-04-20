@@ -12,7 +12,7 @@ class Resources extends CI_Controller {
 
 	public function index()
 	{
-		redirect('resources/view/A');
+		redirect('resources/view/a');
 	}
 
 	public function create_edit_resource($edit = FALSE, $id = NULL, $user_id = NULL)
