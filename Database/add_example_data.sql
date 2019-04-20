@@ -1,7 +1,7 @@
 # Add CodeIgniter example data
 USE codeigniter;
 
-# Add users
+# Add users (The password is "password" for all users)
 INSERT INTO users (username, password, image, biography) VALUES ("user1", "$2y$10$Q8Hq6JZyP0uneUnnT1WWg.YTeSIFGyLS8xezNPn9/g6OwuP6lV6QW", 1, "This is a biography 1");
 INSERT INTO users (username, password, image, biography) VALUES ("user2", "$2y$10$Q8Hq6JZyP0uneUnnT1WWg.YTeSIFGyLS8xezNPn9/g6OwuP6lV6QW", 1, "This is a biography 2");
 INSERT INTO users (username, password, image, biography) VALUES ("user3", "$2y$10$Q8Hq6JZyP0uneUnnT1WWg.YTeSIFGyLS8xezNPn9/g6OwuP6lV6QW", 1, "This is a biography 3");
@@ -35,7 +35,7 @@ UPDATE resources SET num_of_comments = 5 WHERE id = 2;
 # Add CakePHP example data
 USE cakephp;
 
-# Add users
+# Add users (The password is "password" for all users)
 INSERT INTO users (username, password, profile_image_id, biography, created) VALUES ("user1", "$2y$10$Q8Hq6JZyP0uneUnnT1WWg.YTeSIFGyLS8xezNPn9/g6OwuP6lV6QW", 1, "This is a biography 1", NOW());
 INSERT INTO users (username, password, profile_image_id, biography, created) VALUES ("user2", "$2y$10$Q8Hq6JZyP0uneUnnT1WWg.YTeSIFGyLS8xezNPn9/g6OwuP6lV6QW", 1, "This is a biography 2", NOW());
 INSERT INTO users (username, password, profile_image_id, biography, created) VALUES ("user3", "$2y$10$Q8Hq6JZyP0uneUnnT1WWg.YTeSIFGyLS8xezNPn9/g6OwuP6lV6QW", 1, "This is a biography 3", NOW());
