@@ -47,7 +47,9 @@ class ResourcesTable extends Table
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('Comments', [
-            'foreignKey' => 'resource_id'
+            'foreignKey' => 'resource_id',
+            'dependent'  => true,
+            'cascadeCallbacks' => true
         ]);
         $this->belongsToMany('Collections', [
             'foreignKey' => 'resource_id',

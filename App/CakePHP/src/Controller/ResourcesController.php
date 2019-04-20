@@ -74,12 +74,11 @@ class ResourcesController extends AppController
     public function open($slug)
     {
         $title = 'Resource - opened';
-        $show_create_comment = (isset($_SESSION['user_signed_in'])) ? true : false;
 
         $query = $this->Resources->findBySlug($slug);
-        $query->contain(['Users' => ['ProfileImages']]);
+        $query->contain(['Users' => ['ProfileImages'], 'Comments' => ['Users']]);
 
-        $this->set(compact('title', 'show_create_comment', 'query'));
+        $this->set(compact('title', 'query'));
     }
 
     /**

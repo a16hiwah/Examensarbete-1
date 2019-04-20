@@ -62,9 +62,19 @@ class MyAccountController extends AppController
     public function myComments()
     {
         $title = 'My Comments';
-        $this->set(compact(
-            'title'
-        ));
+
+        $comments = $this->loadModel('Comments');
+        $query = $comments->find(
+            'all', [
+            'contain' => ['Resources'],
+            'conditions' => ['Comments.user_id' => $this->Auth->user('id')]
+        ]);
+
+        if($query->isEmpty()) {
+            $query = null;
+        }
+
+        $this->set(compact('title', 'query'));
     }
 
 }
