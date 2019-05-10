@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="randapp.js"></script> 
+    <script src="contextfreegrammar.js"></script>
+    <meta charset="UTF-8">
+ </head>
+ <body>
+    <h2>20 random sentences (5 iterations)</h2>
+    <textarea cols="80" rows="25" id="clobber"></textarea>
+    <h2>Distribution of nouns</h2>
+    <canvas id="canv" height="400px" width="697px" style="border:1px solid red"></canvas>    
+    <script>
+        var sentence="";
+        var seed=1337;
+        var grammar=new ContextFreeGrammar({
+               "probabilityNounPhrase":0.5,
+               "probabilityVerbPhrase":0.5,
+               "probabilityDualAdjectives":0.5,
+               "probabilityStartAdjective":0.5,
+               "distributionOfNouns":"uni-squared",
+               "distributionOfVerbs":"uni-squared",
+               "distributionOfAdjectives":"uni-squared",
+               "distributionOfAdverbs":"uni-squared",
+               "distributionOfDeterminers":"uni-squared",
+               "distributionOfConjunctions":"uni-squared",
+               "distributionOfModals":"uni-squared",
+               "randomSeed":seed
+             });
+        document.getElementById('clobber').value="";
+        for(var i=0;i<20;i++){
+            sentence=grammar.generateSentence();document.getElementById('clobber').value+=sentence;
+        }
+        var canvas1=document.getElementById("canv");
+        var context1=canvas1.getContext("2d");
+        var std_rnd=new RandApp({"seed":seed,"distribution":"normal"});   
+        var accNounArr=[];     
+        
+        for(let k=0;k<50;k++){
+            var nounArr=[]
+            for(let i=0;i<50000;i++){
+              let x=Math.floor(std_rnd.rand()*697)+1;       
+              if(typeof(nounArr[x])!=="number") nounArr[x]=1;               
+              nounArr[x]=nounArr[x]+1;         
+            }
+
+            for(let j=0;j<697;j++){
+                //console.log(j,typeof(nounArr[j]),nounArr[j])
+                if(typeof(nounArr[j])!=="number") {nounArr[j]=1;}
+                context1.fillRect(j,300-nounArr[j],1,1);
+                if(typeof(accNounArr[j])!=="number") {
+                    accNounArr[j]=0;
+                }else{
+                    accNounArr[j]+=nounArr[j];
+                }
+            }
+        }
+        var iterations=parseInt(window.localStorage.getItem("ContextFreeGrammarExample"),10);
+        if(iterations!==parseInt(iterations,10)){
+            iterations=1;
+        }else{
+            iterations++;
+        }
+        alert(iterations);
+        if(iterations<5){
+            window.localStorage.setItem("ContextFreeGrammarExample",iterations);
+            location.reload();
+        }else{
+            window.localStorage.removeItem("ContextFreeGrammarExample");
+            grammar.clearSeeds();
+        }
+
+    </script>
+</body>
