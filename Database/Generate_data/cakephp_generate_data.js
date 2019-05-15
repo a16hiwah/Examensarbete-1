@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name Add data for CodeIgniter web application
+// @name CakePHP - Generate data
 // @namespace Violentmonkey Scripts
-// @match http://localhost/Examensarbete/App/CodeIgniter/*
+// @match http://localhost/Examensarbete/App/CakePHP/*
 // @require http://localhost/Examensarbete/Database/Generate_data/Libraries/RandApp/randapp.js
 // @require http://localhost/Examensarbete/Database/Generate_data/Libraries/ContextFreeLib/js/contextfreegrammar.js
 // @grant none
 // ==/UserScript==
 
-/** Create and add users, resources and comments for the CodeIgniter web application */
+/** Create and add users, resources and comments for the CakePHP web application */
 window.onload = function ()
 {
 	/** How many users to add */
@@ -132,6 +132,12 @@ window.onload = function ()
 	function redirect(url)
 	{
 		let active_page = window.location.href;
+		let redirect_index = active_page.search("\\?redirect");
+
+		if (redirect_index > -1)
+		{
+			active_page = active_page.substr(0, redirect_index);
+		}
 
 		if (active_page !== url)
 		{
@@ -144,7 +150,7 @@ window.onload = function ()
 	/** Creates a user in the database */
 	function createUser()
 	{
-		if( ! redirect("http://localhost/Examensarbete/App/CodeIgniter/index.php/register/create_user"))
+		if( ! redirect("http://localhost/Examensarbete/App/CakePHP/users/add"))
 		{
 			let username = createUsername();
 			let password = createPassword();
@@ -194,7 +200,7 @@ window.onload = function ()
 			{
 				is_unique = true;
 				unavail_usernames.push(username);
-				localStorage.setItem("unavail_username", JSON.stringify(unavail_usernames));
+				localStorage.setItem("unavail_usernames", JSON.stringify(unavail_usernames));
 			}
 		}
 
@@ -205,7 +211,7 @@ window.onload = function ()
 	function createPassword()
 	{
 		initDataGen();
-		
+
 		let password = grammar.generateRandomVerb()
 			+ grammar.generateRandomNoun()
 			+ randApp.randIntFromIntervall(1, 999);
@@ -237,7 +243,7 @@ window.onload = function ()
 				 */
 				if ( ! my_account_opened)
 				{
-					if ( ! redirect("http://localhost/Examensarbete/App/CodeIgniter/index.php/my-account"))
+					if ( ! redirect("http://localhost/Examensarbete/App/CakePHP/my-account"))
 					{
 							localStorage.setItem("my_account_opened", 1);
 							location.reload();
@@ -299,10 +305,10 @@ window.onload = function ()
 		{
 			if ( ! signIn())
 			{
-				if ( ! redirect("http://localhost/Examensarbete/App/CodeIgniter/index.php/resources/create-resource"))
+				if ( ! redirect("http://localhost/Examensarbete/App/CakePHP/resources/create-resource"))
 				{
 					initDataGen();
-					
+
 					let num_of_paragraphs = (SMALL_DATASET)
 						? randApp.randIntFromIntervall(1, 4)
 						: randApp.randIntFromIntervall(10, 40);
@@ -362,7 +368,7 @@ window.onload = function ()
 			if ( ! signIn())
 			{
 				initDataGen();
-				
+
 				let subpages = ["0-9"];
 				let a = "a".charCodeAt(0);
 				let z = "z".charCodeAt(0);
@@ -373,6 +379,11 @@ window.onload = function ()
 					subpages.push(String.fromCharCode(a));
 				}
 
+				/** Subpages on the "Resources" page without any resources */
+				let empty_subpages = (localStorage.getItem("empty_subpages"))
+					? JSON.parse(localStorage.getItem("empty_subpages"))
+					: [];
+
 				/**
 				 * Choose a "random" subpage on the "Resources" page by selecting
 				 * an index from the subpages array.
@@ -380,11 +391,26 @@ window.onload = function ()
 				let random_subpage = (localStorage.getItem("random_subpage"))
 					? parseInt(localStorage.getItem("random_subpage"))
 					: randApp.randIntFromIntervall(0, subpages.length - 1);
+
+				/** Only subpages with resources are valid */
+				let indexIsValid = false;
+
+				while ( ! indexIsValid)
+				{
+					if ( ! empty_subpages.includes(random_subpage))
+					{
+						indexIsValid = true;
+					}
+					else
+					{
+						random_subpage = randApp.randIntFromIntervall(0, subpages.length - 1);
+					}
+				}
 				
 				localStorage.setItem("random_subpage", random_subpage);
 
 				let subpage_url =
-					"http://localhost/Examensarbete/App/CodeIgniter/index.php/resources/view/"
+					"http://localhost/Examensarbete/App/CakePHP/resources/view/"
 					+ subpages[random_subpage];
 
 				let subpage_opened = (localStorage.getItem("subpage_opened"))
@@ -406,6 +432,8 @@ window.onload = function ()
 						if (document.querySelectorAll('td > a').length === 0)
 						{
 							localStorage.removeItem("random_subpage");
+							empty_subpages.push(random_subpage);
+							localStorage.setItem("empty_subpages", JSON.stringify(empty_subpages));
 							location.reload();
 						}
 						else
@@ -474,7 +502,7 @@ window.onload = function ()
 
 		if ( ! signed_in)
 		{
-			if ( ! redirect("http://localhost/Examensarbete/App/CodeIgniter/index.php/sign-in"))
+			if ( ! redirect("http://localhost/Examensarbete/App/CakePHP/users/login"))
 			{
 				/** Keep track of the user account that should be used for creating resources or comments */
 				let user_index = (localStorage.getItem("user_index"))
@@ -514,13 +542,15 @@ window.onload = function ()
 	{
 		localStorage.setItem("signed_in", 0);
 		localStorage.setItem("user_modified", 0);
+		localStorage.setItem("my_account_opened", 0);
 		localStorage.setItem("resource_created", 0);
 		localStorage.setItem("comment_created", 0);
 		localStorage.setItem("subpage_opened", 0);
 
+		localStorage.removeItem("edit_usr_url");
 		localStorage.removeItem("random_subpage");
 		localStorage.removeItem("resource_url");
 		
-		redirect("http://localhost/Examensarbete/App/CodeIgniter/index.php/sign-out");
+		redirect("http://localhost/Examensarbete/App/CakePHP/users/logout");
 	}
 };
