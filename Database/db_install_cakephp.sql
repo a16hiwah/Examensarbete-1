@@ -31,7 +31,7 @@ CREATE TABLE resources (
     title VARCHAR(255) NOT NULL,
     slug VARCHAR(191) NOT NULL,
     description VARCHAR(255) NOT NULL,
-    body TEXT NOT NULL,
+    body MEDIUMTEXT NOT NULL,
     num_of_comments INT NOT NULL,
     created DATETIME,
     PRIMARY KEY (id, user_id),
@@ -78,4 +78,4 @@ CREATE TABLE `sessions` (
   `data` blob DEFAULT NULL, -- for PostgreSQL use bytea instead of blob
   `expires` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name CodeIgniter - Generate data
+// @name 01 CodeIgniter - Generate data
 // @namespace Violentmonkey Scripts
 // @match http://localhost/Examensarbete/App/CodeIgniter/*
 // @require http://localhost/Examensarbete/Database/Generate_data/Libraries/RandApp/randapp.js
@@ -7,73 +7,101 @@
 // @grant none
 // ==/UserScript==
 
-/** Create and add users, resources and comments for the CodeIgniter web application */
+// Create and add users and resources for the CodeIgniter web application
+
+// If the script stops, it is possible to refresh the page manually in the browser
+// If it stops often, add the following line of code to the head in header.php:
+// <meta http-equiv="Refresh" content="5">
+// 5 is the number of seconds before an automatic page refresh and might have to
+// be tweaked depending on the performance of the computer running the script
+
 window.onload = function ()
 {
-	/** How many users to add */
-	const USERS = 100;
+	// How many users to create
+	const USERS = 200;
 
-	/** How many resources to add */
-	const RESOURCES = 100;
+	// How many users to modify, i.e. change profile image and add biography, MAX = USERS
+	const MODIFY_USERS = 100;
 
-	/** How many comments to add */
-	const COMMENTS = 100;
+	// How many resources to create, see file "DATA_DISTRIBUTION" for information about total resources
+	const TOTAL_RESOURCES_A_TO_N = 316;
 
-	/** How many times in total the script will run */
-	const TOTAL_RUNS = USERS + RESOURCES + COMMENTS + Math.trunc(USERS / 2);
+	// How many resources to create per subpage in the range O through Z, see file "DATA_DISTRIBUTION" for information
+	const RESOURCES_PER_SUBPAGE_O_TO_Z = 10;
 
-	/** When set to false, resources and comments will consist of more text */
-	const SMALL_DATASET = true;
+	// How many subpages there are for every test, i.e. Low, medium and high resource content,
+	// see file "DATA_DISTRIBUTION" for information
+	const SUBPAGES_PER_DATA_VOLUME = 4;
 
-	/** How many users that have been added */
-	let users_added = (localStorage.getItem("users_added"))
-		? parseInt(localStorage.getItem("users_added"))
+	// How many times in total the script will run
+	const TOTAL_RUNS = USERS + MODIFY_USERS + TOTAL_RESOURCES_A_TO_N + RESOURCES_PER_SUBPAGE_O_TO_Z * 12;
+
+	// How many users that have been created
+	let usersCreated = (localStorage.getItem("usersCreated"))
+		? parseInt(localStorage.getItem("usersCreated"))
 		: 0;
 
-	/** How many users that have been modified */
-	let users_modified = (localStorage.getItem("users_modified"))
-		? parseInt(localStorage.getItem("users_modified"))
+	// How many users that have been modified
+	let usersModified = (localStorage.getItem("usersModified"))
+		? parseInt(localStorage.getItem("usersModified"))
 		: 0;
 	
-	/** How many resources that have been added */
-	let resources_added = (localStorage.getItem("resources_added"))
-		? parseInt(localStorage.getItem("resources_added"))
+	// How many resources that have been created in the range A through N
+	let resourcesCreatedAtoN = (localStorage.getItem("resourcesCreatedAtoN"))
+		? parseInt(localStorage.getItem("resourcesCreatedAtoN"))
 		: 0;
 
-	/** How many comments that have been added */
-	let comments_added = (localStorage.getItem("comments_added"))
-		? parseInt(localStorage.getItem("comments_added"))
+	// How many resources that have been created with a low amount of text
+	let resourcesCreatedLow = (localStorage.getItem("resourcesCreatedLow"))
+		? parseInt(localStorage.getItem("resourcesCreatedLow"))
 		: 0;
 
-	/** How many times the script has been run */
-	let times_run = (localStorage.getItem("times_run"))
-		? parseInt(localStorage.getItem("times_run"))
+	// How many resources that have been created with a medium amount of text
+	let resourcesCreatedMedium = (localStorage.getItem("resourcesCreatedMedium"))
+		? parseInt(localStorage.getItem("resourcesCreatedMedium"))
+		: 0;
+	
+	// How many resources that have been created with a high amount of text
+	let resourcesCreatedHigh = (localStorage.getItem("resourcesCreatedHigh"))
+		? parseInt(localStorage.getItem("resourcesCreatedHigh"))
+		: 0;
+
+	// How many times the script has been run
+	let timesRun = (localStorage.getItem("timesRun"))
+		? parseInt(localStorage.getItem("timesRun"))
 		: 1;
 	
-	/** All created users with their usernames and passwords */
-	let created_users_data = (localStorage.getItem("created_users_data"))
-		? JSON.parse(localStorage.getItem("created_users_data"))
+	// All created users with their usernames and passwords; used for signing users into the web application
+	let createdUsersData = (localStorage.getItem("createdUsersData"))
+		? JSON.parse(localStorage.getItem("createdUsersData"))
 		: [];
 
 	let randApp = null;
 	let grammar = null;
 
-	/** Create all data */
-	if (users_added < USERS)
+	if (usersCreated < USERS)
 	{
 		createUser();
 	}
-	else if (users_modified < USERS / 2)
+	else if (usersModified < MODIFY_USERS)
 	{
 		modifyUser();
 	}
-	else if (resources_added < RESOURCES)
+	else if (resourcesCreatedAtoN < TOTAL_RESOURCES_A_TO_N)
 	{
-		createResource();
+		createResource("low", "a-n");
 	}
-	else if (comments_added < COMMENTS)
+	else if (resourcesCreatedLow < RESOURCES_PER_SUBPAGE_O_TO_Z * SUBPAGES_PER_DATA_VOLUME)
 	{
-		createComment();
+		createResource("low");
+	}
+	else if (resourcesCreatedMedium < RESOURCES_PER_SUBPAGE_O_TO_Z * SUBPAGES_PER_DATA_VOLUME)
+	{
+		createResource("medium");
+	}
+	else if (resourcesCreatedHigh < RESOURCES_PER_SUBPAGE_O_TO_Z * SUBPAGES_PER_DATA_VOLUME)
+	{
+		createResource("high");
 	}
 	else
 	{
@@ -81,16 +109,13 @@ window.onload = function ()
 	}
 
 
-	/** HELPER FUNCTIONS */
-
 	/**
-	 * Only assign objects to "randApp" and "grammar" before they are actually
-	 * used by calling this function to prevent different data being generated
-	 * for both web applications.
+	 * Only call immediatly before using "randApp" to prevent different data being
+	 * generated for each web application
 	 */
-	function initDataGen()
+	function initRandApp()
 	{
-		/** Object used to generate "random" numbers */
+		// Object used to generate "random" numbers
 		randApp = new RandApp(
 			{
 				"seed":1,
@@ -98,8 +123,15 @@ window.onload = function ()
 				"persistentSeed":false
 			}
 		);
-			
-		/** Object used to generate words and scentences */
+	}
+
+	/**
+	 * Only call immediatly before using "grammar" to prevent different data being
+	 * generated for each web application
+	 */
+	function initGrammar()
+	{
+		// Object used to generate words and scentences
 		grammar = new ContextFreeGrammar(
 			{
 				"probabilityNounPhrase":0.5,
@@ -118,22 +150,33 @@ window.onload = function ()
 		);
 	}
 
-	/** Print status on script progress in the browser console */
+	/**
+	 * Print status on script progress in the browser console
+	 */
 	function printTimesRun()
 	{
-		console.log(`Times run: ${times_run} of ${TOTAL_RUNS}`);
-		localStorage.setItem("times_run", times_run + 1);
+		console.log(`Times run: ${timesRun} of ${TOTAL_RUNS}`);
 	}
 
 	/**
-	 * Opens the specified page if it is not already opened.
-	 * Returns "false" if no redirect is needed.
+	 * Update script progress status
+	 */
+	function updateTimesRun()
+	{
+		localStorage.setItem("timesRun", timesRun + 1);
+	}
+
+	/**
+	 * Opens the specified page if it is not already opened
+	 * 
+	 * @param {string} url This URL will be opened in the active window/tab
+	 * @returns {boolean} Returns "false" if no redirect is needed
 	 */
 	function redirect(url)
 	{
-		let active_page = window.location.href;
+		let activePage = window.location.href;
 
-		if (active_page !== url)
+		if (activePage !== url)
 		{
 			window.open(url, "_self");
 			return true;
@@ -141,7 +184,9 @@ window.onload = function ()
 		return false;
 	}
 
-	/** Creates a user in the database */
+	/**
+	 * Creates a user in the database
+	 */
 	function createUser()
 	{
 		if( ! redirect("http://localhost/Examensarbete/App/CodeIgniter/index.php/register/create_user"))
@@ -153,35 +198,41 @@ window.onload = function ()
 			document.getElementById("form-password").value = password;
 			document.getElementById("form-passconf").value = password;
 	
-			created_users_data.push([username, password]);
+			createdUsersData.push([username, password]);
 			
-			localStorage.setItem("users_added", users_added + 1);
-			localStorage.setItem("created_users_data", JSON.stringify(created_users_data));
+			localStorage.setItem("usersCreated", usersCreated + 1);
+			localStorage.setItem("createdUsersData", JSON.stringify(createdUsersData));
 	
 			printTimesRun();
+			updateTimesRun();
 	
 			document.getElementsByName("submit")[0].click();
 		}
 	}
 
-	/** Returns a unique username */
+	/**
+	 * Creates a unique username
+	 * 
+	 * @returns {string} Returns a username
+	 */
 	function createUsername()
 	{
-		initDataGen();
-
 		let username = null;
-		let is_unique = false;
+		let isUnique = false;
 
-		let unavail_usernames = (localStorage.getItem("unavail_usernames"))
-			? JSON.parse(localStorage.getItem("unavail_usernames"))
+		let unavailUsernames = (localStorage.getItem("unavailUsernames"))
+			? JSON.parse(localStorage.getItem("unavailUsernames"))
 			: [];
 
-		while ( ! is_unique)
+		initRandApp();
+		initGrammar();
+		
+		while ( ! isUnique)
 		{
-			/** Used to create different types of usernames */
-			let random_num = randApp.randIntFromIntervall(1, 100);
+			// Used to create different types of usernames
+			let randomNum = randApp.randIntFromIntervall(1, 100);
 
-			if (random_num <= 50)
+			if (randomNum <= 50)
 			{
 				username = grammar.generateRandomNoun() + grammar.generateRandomNoun();
 			}
@@ -190,21 +241,26 @@ window.onload = function ()
 				username = grammar.generateRandomNoun() + randApp.randIntFromIntervall(1, 999);
 			}
 
-			if ( ! unavail_usernames.includes(username))
+			if ( ! unavailUsernames.includes(username))
 			{
-				is_unique = true;
-				unavail_usernames.push(username);
-				localStorage.setItem("unavail_usernames", JSON.stringify(unavail_usernames));
+				isUnique = true;
+				unavailUsernames.push(username);
+				localStorage.setItem("unavailUsernames", JSON.stringify(unavailUsernames));
 			}
 		}
 
 		return username;
 	}
 
-	/** Returns a random password */
+	/**
+	 * Creates a random password
+	 * 
+	 * @returns {string} Returns a password
+	 */
 	function createPassword()
 	{
-		initDataGen();
+		initRandApp();
+		initGrammar();
 		
 		let password = grammar.generateRandomVerb()
 			+ grammar.generateRandomNoun()
@@ -213,264 +269,68 @@ window.onload = function ()
 		return password;
 	}
 
-	/** Modifies the profile image and biography of a user */
+	/**
+	 * Modifies the profile image and biography of a user
+	 */
 	function modifyUser()
 	{
-		let user_modified = (localStorage.getItem("user_modified"))
-			? parseInt(localStorage.getItem("user_modified"))
+		// Boolean
+		let userModified = (localStorage.getItem("userModified"))
+			? parseInt(localStorage.getItem("userModified"))
 			: 0;
 
-		/**
-		 * Modify one user and then sign out and change user
-		 */
-		if ( ! user_modified)
+		// Modify one user and then sign out and change user
+		if ( ! userModified)
 		{
 			if ( ! signIn())
 			{
-				let my_account_opened = (localStorage.getItem("my_account_opened"))
-					? parseInt(localStorage.getItem("my_account_opened"))
+				// Boolean
+				let myAccountOpened = (localStorage.getItem("myAccountOpened"))
+					? parseInt(localStorage.getItem("myAccountOpened"))
 					: 0;
 
-				/**
-				 * Prevent being stuck in a redirect loop when performing
-				 * more than one redirect in a sequence.
-				 */
-				if ( ! my_account_opened)
+				// Prevent being stuck in a redirect loop when performing
+				// more than one redirect in a sequence.
+				if ( ! myAccountOpened)
 				{
-					if ( ! redirect("http://localhost/Examensarbete/App/CodeIgniter/index.php/my-account"))
+					if ( ! redirect("http://localhost/Examensarbete/App/CodeIgniter/index.php/my-account/overview"))
 					{
-							localStorage.setItem("my_account_opened", 1);
+							localStorage.setItem("myAccountOpened", 1);
 							location.reload();
 					}
 				}
 				else
 				{
-					/** Save the URL for the selected resource */
-					let edit_usr_url = (localStorage.getItem("edit_usr_url"))
-						? JSON.parse(localStorage.getItem("edit_usr_url"))
+					// Save the URL to the edit-user page
+					let editUsrUrl = (localStorage.getItem("editUsrUrl"))
+						? JSON.parse(localStorage.getItem("editUsrUrl"))
 						: document.getElementById("edit-usr-btn").href;
 
-					localStorage.setItem("edit_usr_url", JSON.stringify(edit_usr_url));
+					localStorage.setItem("editUsrUrl", JSON.stringify(editUsrUrl));
 					
-					if ( ! redirect(edit_usr_url))
+					if ( ! redirect(editUsrUrl))
 					{
-						initDataGen();
+						initRandApp();
+						initGrammar();
 
 						document.getElementById("profile-img-2").checked = true;
 	
-						let num_of_sentences = randApp.randIntFromIntervall(1, 5);
+						let numOfSentences = randApp.randIntFromIntervall(1, 5);
 							
 						let biography = "";
 		
-						for (let i = 0; i < num_of_sentences; i++)
+						for (let i = 0; i < numOfSentences; i++)
 						{
 							biography += grammar.generateSentence();
 						}
 		
 						document.getElementById("form-biography").value = biography;
 			
-						localStorage.setItem("user_modified", 1);
-						localStorage.setItem("users_modified", users_modified + 1);
+						localStorage.setItem("userModified", 1);
+						localStorage.setItem("usersModified", usersModified + 1);
 			
 						printTimesRun();
-			
-						document.getElementsByName("submit")[0].click();
-					}
-				}
-			}
-		}
-		else
-		{
-			signOut();
-		}
-	}
-
-	/** Creates a resource in the database */
-	function createResource()
-	{
-		let resource_created = (localStorage.getItem("resource_created"))
-			? parseInt(localStorage.getItem("resource_created"))
-			: 0;
-
-		/**
-		 * Create one resource and then sign out and change user
-		 */
-		if ( ! resource_created)
-		{
-			if ( ! signIn())
-			{
-				if ( ! redirect("http://localhost/Examensarbete/App/CodeIgniter/index.php/resources/create-resource"))
-				{
-					initDataGen();
-					
-					let num_of_paragraphs = (SMALL_DATASET)
-						? randApp.randIntFromIntervall(1, 4)
-						: randApp.randIntFromIntervall(10, 40);
-	
-					let title = grammar.generateSentence();
-					let description = grammar.generateSentence();
-					let body = "";
-	
-					for (let i = 0; i < num_of_paragraphs; i++)
-					{
-						let num_of_sentences = (SMALL_DATASET)
-							? randApp.randIntFromIntervall(10, 50)
-							: randApp.randIntFromIntervall(100, 500);
-	
-						for (let j = 0; j < num_of_sentences; j++)
-						{
-							body += grammar.generateSentence();
-						}
-	
-						if (i !== num_of_paragraphs - 1)
-						{
-							body += "\n\n";
-						}
-					}
-	
-					document.getElementById("form-title").value = title;
-					document.getElementById("form-description").value = description;
-					document.getElementById("form-body").value = body;
-	
-					localStorage.setItem("resource_created", 1);
-					localStorage.setItem("resources_added", resources_added + 1);
-	
-					printTimesRun();
-	
-					document.getElementsByName("submit")[0].click();
-				}
-			}
-		}
-		else
-		{
-			signOut();
-		}
-	}
-
-	/** Creates a comment in the database */
-	function createComment()
-	{
-		let comment_created = (localStorage.getItem("comment_created"))
-			? parseInt(localStorage.getItem("comment_created"))
-			: 0;
-
-		/**
-		 * Create one comment and then sign out and change user
-		 */
-		if ( ! comment_created)
-		{
-			if ( ! signIn())
-			{
-				initDataGen();
-				
-				let subpages = ["0-9"];
-				let a = "a".charCodeAt(0);
-				let z = "z".charCodeAt(0);
-
-				/** Push letters in the range a-z to the array "subpages" */
-				for (; a <= z; ++a)
-				{
-					subpages.push(String.fromCharCode(a));
-				}
-
-				/** Subpages on the "Resources" page without any resources */
-				let empty_subpages = (localStorage.getItem("empty_subpages"))
-					? JSON.parse(localStorage.getItem("empty_subpages"))
-					: [];
-
-				/**
-				 * Choose a "random" subpage on the "Resources" page by selecting
-				 * an index from the subpages array.
-				 */
-				let random_subpage = (localStorage.getItem("random_subpage"))
-					? parseInt(localStorage.getItem("random_subpage"))
-					: randApp.randIntFromIntervall(0, subpages.length - 1);
-
-				/** Only subpages with resources are valid */
-				let indexIsValid = false;
-
-				while ( ! indexIsValid)
-				{
-					if ( ! empty_subpages.includes(random_subpage))
-					{
-						indexIsValid = true;
-					}
-					else
-					{
-						random_subpage = randApp.randIntFromIntervall(0, subpages.length - 1);
-					}
-				}
-				
-				localStorage.setItem("random_subpage", random_subpage);
-
-				let subpage_url =
-					"http://localhost/Examensarbete/App/CodeIgniter/index.php/resources/view/"
-					+ subpages[random_subpage];
-
-				let subpage_opened = (localStorage.getItem("subpage_opened"))
-					? parseInt(localStorage.getItem("subpage_opened"))
-					: 0;
-
-				/**
-				 * Prevent being stuck in a redirect loop when performing
-				 * more than one redirect in a sequence.
-				 */
-				if ( ! subpage_opened)
-				{
-					if ( ! redirect(subpage_url))
-					{
-						/**
-						 * If there are no resources on the selected subpage,
-						 * a new subpage must be chosen.
-						 */
-						if (document.querySelectorAll('td > a').length === 0)
-						{
-							localStorage.removeItem("random_subpage");
-							empty_subpages.push(random_subpage);
-							localStorage.setItem("empty_subpages", JSON.stringify(empty_subpages));
-							location.reload();
-						}
-						else
-						{
-							localStorage.setItem("subpage_opened", 1);
-							location.reload();
-						}
-					}
-				}
-				else
-				{
-					/** Get the elements for all resources */
-					let resources = document.querySelectorAll('td > a');
-
-					/** Select a "random" element */
-					let random_resource = randApp.randIntFromIntervall(0, resources.length - 1);
-
-					/** Save the URL for the selected resource */
-					let resource_url = (localStorage.getItem("resource_url"))
-						? JSON.parse(localStorage.getItem("resource_url"))
-						: resources[random_resource].href;
-
-					localStorage.setItem("resource_url", JSON.stringify(resource_url));
-
-					if ( ! redirect(resource_url))
-					{
-						let num_of_sentences = (SMALL_DATASET)
-							? randApp.randIntFromIntervall(1, 5)
-							: randApp.randIntFromIntervall(10, 50);
-							
-						let comment = "";
-
-						for (let i = 0; i < num_of_sentences; i++)
-						{
-							comment += grammar.generateSentence();
-						}
-
-						document.getElementById("form-comment").value = comment;
-			
-						localStorage.setItem("comment_created", 1);
-						localStorage.setItem("comments_added", comments_added + 1);
-			
-						printTimesRun();
+						updateTimesRun();
 			
 						document.getElementsByName("submit")[0].click();
 					}
@@ -484,39 +344,220 @@ window.onload = function ()
 	}
 
 	/**
-	 * Automatically selects the next user to sign in when no user is signed in.
-	 * Returns "false" when no sign in is needed.
+	 * Creates a resource in the database
+	 */
+	function createResource(dataVolume, range = null)
+	{
+		// Boolean
+		let resourceCreated = (localStorage.getItem("resourceCreated"))
+			? parseInt(localStorage.getItem("resourceCreated"))
+			: 0;
+
+		// Create one resource and then sign out and change user
+		if ( ! resourceCreated)
+		{
+			if ( ! signIn())
+			{
+				if ( ! redirect("http://localhost/Examensarbete/App/CodeIgniter/index.php/resources/create-resource"))
+				{
+					// How many resources should be added to the the different "Resources" subpages
+					// The total must equal "RESOURCES"
+					let resourcesPerSubpage =
+					[
+						{ "subpage":"0-9", "amount":0 },
+						{ "subpage":"A",   "amount":0 },
+						{ "subpage":"B",   "amount":100 },
+						{ "subpage":"C",   "amount":50 },
+						{ "subpage":"D",   "amount":5 },
+						{ "subpage":"E",   "amount":0 },
+						{ "subpage":"F",   "amount":2 },
+						{ "subpage":"G",   "amount":1 },
+						{ "subpage":"H",   "amount":100 },
+						{ "subpage":"I",   "amount":50 },
+						{ "subpage":"J",   "amount":0 },
+						{ "subpage":"K",   "amount":5 },
+						{ "subpage":"L",   "amount":2 },
+						{ "subpage":"M",   "amount":1 },
+						{ "subpage":"N",   "amount":0 },
+						{ "subpage":"O",   "amount":RESOURCES_PER_SUBPAGE_O_TO_Z },
+						{ "subpage":"P",   "amount":RESOURCES_PER_SUBPAGE_O_TO_Z },
+						{ "subpage":"Q",   "amount":RESOURCES_PER_SUBPAGE_O_TO_Z },
+						{ "subpage":"R",   "amount":RESOURCES_PER_SUBPAGE_O_TO_Z },
+						{ "subpage":"S",   "amount":RESOURCES_PER_SUBPAGE_O_TO_Z },
+						{ "subpage":"T",   "amount":RESOURCES_PER_SUBPAGE_O_TO_Z },
+						{ "subpage":"U",   "amount":RESOURCES_PER_SUBPAGE_O_TO_Z },
+						{ "subpage":"V",   "amount":RESOURCES_PER_SUBPAGE_O_TO_Z },
+						{ "subpage":"W",   "amount":RESOURCES_PER_SUBPAGE_O_TO_Z },
+						{ "subpage":"X",   "amount":RESOURCES_PER_SUBPAGE_O_TO_Z },
+						{ "subpage":"Y",   "amount":RESOURCES_PER_SUBPAGE_O_TO_Z },
+						{ "subpage":"Z",   "amount":RESOURCES_PER_SUBPAGE_O_TO_Z }
+					];
+
+					// Keep track of which subpage the next resource should be added to
+					let subpageIndex = (localStorage.getItem("subpageIndex"))
+						? parseInt(localStorage.getItem("subpageIndex"))
+						: 0;
+					
+					// How many resources have been created on the page of "subpageIndex"
+					let resourcesOnSubpage = (localStorage.getItem("resourcesOnSubpage"))
+						? parseInt(localStorage.getItem("resourcesOnSubpage"))
+						: 0;
+
+					// When all resources for a subpage have been created, move to the next subpage
+					if (resourcesOnSubpage >= resourcesPerSubpage[subpageIndex]["amount"])
+					{
+						subpageIndex++;
+
+						// If the next subpage should be empty, a new index must be selected
+						if (resourcesPerSubpage[subpageIndex]["amount"] === 0)
+						{
+							let indexIsValid = false;
+
+							while ( ! indexIsValid)
+							{
+								subpageIndex++;
+
+								if (resourcesPerSubpage[subpageIndex]["amount"] !== 0)
+								{
+									indexIsValid = true;
+								}
+							}
+						}
+						
+						localStorage.setItem("subpageIndex", subpageIndex);
+						resourcesOnSubpage = 0;
+					}
+
+					// The number of paragraphs in a resource
+					let paragraphs = null;
+
+					let sentencesPerParagraph = null;
+
+					switch (dataVolume)
+					{
+						case "low":
+							paragraphs = 1;
+							sentencesPerParagraph = 1;
+							break;
+
+						case "medium":
+							paragraphs = 2;
+							sentencesPerParagraph = 125;
+							break;
+
+						case "high":
+							paragraphs = 10;
+							sentencesPerParagraph = 100;
+							break;
+
+						default:
+							console.error(`The variable "dataVolume" has an invalid value.`);
+					}
+
+					initGrammar();
+
+					let title =
+						resourcesPerSubpage[subpageIndex]["subpage"]
+						+ " "
+						+ grammar.generateSentence();
+					
+					let description = grammar.generateSentence();
+					let body = "";
+	
+					for (let i = 0; i < paragraphs; i++)
+					{
+						for (let j = 0; j < sentencesPerParagraph; j++)
+						{
+							body += grammar.generateSentence();
+						}
+	
+						if (i !== paragraphs - 1)
+						{
+							body += "\n\n";
+						}
+					}
+	
+					document.getElementById("form-title").value = title;
+					document.getElementById("form-description").value = description;
+					document.getElementById("form-body").value = body;
+	
+					localStorage.setItem("resourceCreated", 1);
+					localStorage.setItem("resourcesOnSubpage", resourcesOnSubpage + 1);
+
+					if (range !== null)
+					{
+						localStorage.setItem("resourcesCreatedAtoN", resourcesCreatedAtoN + 1);
+					}
+					else
+					{
+						switch (dataVolume)
+						{
+							case "low":
+								localStorage.setItem("resourcesCreatedLow", resourcesCreatedLow + 1);
+								break;
+
+							case "medium":
+								localStorage.setItem("resourcesCreatedMedium", resourcesCreatedMedium + 1);
+								break;
+
+							case "high":
+								localStorage.setItem("resourcesCreatedHigh", resourcesCreatedHigh + 1);
+								break;
+
+							default:
+								console.error(`The variable "dataVolume" has an invalid value.`);
+						}
+					}
+	
+					printTimesRun();
+					updateTimesRun();
+	
+					document.getElementsByName("submit")[0].click();
+				}
+			}
+		}
+		else
+		{
+			signOut();
+		}
+	}
+
+	/**
+	 * Automatically selects the next user to sign in when no user is signed in
+	 * 
+	 * @return {boolean} Returns "false" when no sign in is needed
 	 */
 	function signIn()
 	{
-		/** Keep track of sign in status */
-		let signed_in = (localStorage.getItem("signed_in"))
-			? parseInt(localStorage.getItem("signed_in"))
+		// Keep track of sign in status
+		let signedIn = (localStorage.getItem("signedIn"))
+			? parseInt(localStorage.getItem("signedIn"))
 			: 0;
 
-		if ( ! signed_in)
+		if ( ! signedIn)
 		{
 			if ( ! redirect("http://localhost/Examensarbete/App/CodeIgniter/index.php/sign-in"))
 			{
-				/** Keep track of the user account that should be used for creating resources or comments */
-				let user_index = (localStorage.getItem("user_index"))
-				? parseInt(localStorage.getItem("user_index"))
-				: 0;
+				// Keep track of the user account that should be used for creating
+				// resources
+				let userIndex = (localStorage.getItem("userIndex"))
+					? parseInt(localStorage.getItem("userIndex"))
+					: 0;
 
-				/** Reset index and start over when it becomes invalid */
-				if (user_index >= created_users_data.length)
+				// Reset index and start over when it becomes invalid
+				if (userIndex >= createdUsersData.length)
 				{
-					user_index = 0;
+					userIndex = 0;
 				}
 
-				let username = created_users_data[user_index][0];
-				let password = created_users_data[user_index][1];
+				let username = createdUsersData[userIndex][0];
+				let password = createdUsersData[userIndex][1];
 
 				document.getElementById("form-username").value = username;
 				document.getElementById("form-password").value = password;
 
-				localStorage.setItem("signed_in", 1);
-				localStorage.setItem("user_index", user_index + 1);
+				localStorage.setItem("signedIn", 1);
+				localStorage.setItem("userIndex", userIndex + 1);
 
 				document.getElementsByName("submit")[0].click();
 				return true;
@@ -529,20 +570,16 @@ window.onload = function ()
 	}
 
 	/**
-	 * Signs out the current user and resets necessary data to prepare for the
-	 * next run.
+	 * Signs out the current user and resets necessary data to prepare for the next run
 	 */
 	function signOut()
 	{
-		localStorage.setItem("signed_in", 0);
-		localStorage.setItem("user_modified", 0);
-		localStorage.setItem("resource_created", 0);
-		localStorage.setItem("comment_created", 0);
-		localStorage.setItem("subpage_opened", 0);
+		localStorage.setItem("signedIn", 0);
+		localStorage.setItem("userModified", 0);
+		localStorage.removeItem("editUsrUrl");
+		localStorage.setItem("resourceCreated", 0);
+		localStorage.setItem("myAccountOpened", 0);
 
-		localStorage.removeItem("random_subpage");
-		localStorage.removeItem("resource_url");
-		
 		redirect("http://localhost/Examensarbete/App/CodeIgniter/index.php/sign-out");
 	}
 };

@@ -1,0 +1,5 @@
+
+After changes to how the measurements should be performed, it was necessary to
+change how the data were generated and it was decided that these files were no
+longer needed. However, they will not be removed as they might prove useful in
+future work related to this experiment.

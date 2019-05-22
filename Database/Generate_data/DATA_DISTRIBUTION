@@ -1,0 +1,66 @@
+
+First measurement
+
+Data distribution when measuring if the number of resources affects response
+times (the number indicates the number of resources on that subpage):
+
+0-9 = 0
+A   = 0
+B   = 100
+C   = 50
+D   = 5
+E   = 0
+F   = 2
+G   = 1
+H   = 100
+I   = 50
+J   = 0
+K   = 5
+L   = 2
+M   = 1
+N   = 0
+
+CSV file structure:
+Time,NumberOfResources
+
+Example:
+2.221,5
+5.554,50
+
+____________________________________________________________________________________________________
+
+Second measurement (reset database to prevent indexing from affecting the results)
+
+Data distribution when measuring response times for opening an individual
+resource without comments and with a varying amount of content:
+
+O = Low resource content,		(10 resources)
+P = Low resource content,		(10 resources)
+Q = Low resource content,		(10 resources)
+R = Low resource content,		(10 resources)
+
+S = Medium resource content,	(10 resources)
+T = Medium resource content,	(10 resources)
+U = Medium resource content,	(10 resources)
+V = Medium resource content,	(10 resources)
+
+W = High resource content,		(10 resources)
+X = High resource content,		(10 resources)
+Y = High resource content,		(10 resources)
+Z = High resource content,		(10 resources)
+
+
+CSV file structure:
+Time,DataVolume
+
+Example:
+2.215,low
+4.533,medium
+5.522,high
+
+____________________________________________________________________________________________________
+
+Total amount of resources to add for subpages A-N: 316
+
+Resources per subpage O-Z: 10
+Subpages per data volume (i.e. Low, Medium and High): 4
